@@ -1,0 +1,12 @@
+{
+  "name": "quantdesk-angel-proxy",
+  "version": "1.0.0",
+  "description": "Angel One SmartAPI proxy for QuantDesk (free Indian market data)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
