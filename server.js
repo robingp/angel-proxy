@@ -103,17 +103,28 @@ async function getScrip() {
   return scrip;
 }
 const IDX = {
-  NIFTY:     { seg: "NSE", name: "Nifty 50" },
-  BANKNIFTY: { seg: "NSE", name: "Nifty Bank" },
-  SENSEX:    { seg: "BSE", name: "SENSEX" },
+  NIFTY:     { seg: "NSE", names: ["Nifty 50", "NIFTY 50", "NIFTY50", "NIFTY"] },
+  BANKNIFTY: { seg: "NSE", names: ["Nifty Bank", "NIFTY BANK", "BANKNIFTY", "BANK NIFTY", "NIFTYBANK"] },
+  SENSEX:    { seg: "BSE", names: ["SENSEX", "BSE SENSEX", "S&P BSE SENSEX"] },
 };
 async function findToken(sym, exchange) {
   const list = await getScrip();
   if (exchange === "IDX") {
-    const m = IDX[sym] || { seg: "NSE", name: sym };
-    const hit = list.find(x => x.exch_seg === m.seg && (x.name || "").toUpperCase() === m.name.toUpperCase());
-    if (!hit) throw new Error("Index not found: " + sym);
-    return { token: hit.token, seg: m.seg };
+    const m = IDX[sym] || { seg: "NSE", names: [sym] };
+    const wanted = m.names.map(n => n.toUpperCase().replace(/\s+/g, ""));
+    // first try exact-ish name match within the right segment
+    let hit = list.find(x => x.exch_seg === m.seg &&
+      wanted.includes((x.name || "").toUpperCase().replace(/\s+/g, "")));
+    // some indices are tagged as AMXIDX / with instrumenttype blank; try symbol field too
+    if (!hit) hit = list.find(x => x.exch_seg === m.seg &&
+      wanted.includes((x.symbol || "").toUpperCase().replace(/\s+/g, "")));
+    // last resort: any segment, name contains the core word
+    if (!hit) {
+      const core = (m.names[0] || sym).toUpperCase().replace(/\s+/g, "");
+      hit = list.find(x => (x.name || "").toUpperCase().replace(/\s+/g, "") === core);
+    }
+    if (!hit) throw new Error("Index not found: " + sym + " (try /find?q=" + encodeURIComponent(m.names[0]) + " to see Angel's exact name)");
+    return { token: hit.token, seg: hit.exch_seg || m.seg };
   }
   const seg = exchange; // NSE or BSE
   let hit = list.find(x => x.exch_seg === seg && x.symbol === sym + "-EQ");
@@ -165,6 +176,24 @@ http.createServer(async (req, res) => {
       const data = await getCandles(sym, exchange, days);
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(JSON.stringify(data));
+    } catch (e) {
+      res.writeHead(500, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: e.message }));
+    }
+    return;
+  }
+  if (url.pathname === "/find") {
+    // debug helper: /find?q=bank  -> shows Angel instruments whose name contains 'bank'
+    try {
+      const q = (url.searchParams.get("q") || "").toUpperCase();
+      const list = await getScrip();
+      const out = list.filter(x =>
+        ((x.name || "").toUpperCase().includes(q) || (x.symbol || "").toUpperCase().includes(q)) &&
+        (x.instrumenttype === "AMXIDX" || x.instrumenttype === "" || !x.instrumenttype ||
+         (x.exch_seg === "NSE" || x.exch_seg === "BSE"))
+      ).slice(0, 40).map(x => ({ name: x.name, symbol: x.symbol, token: x.token, seg: x.exch_seg, type: x.instrumenttype }));
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify(out, null, 2));
     } catch (e) {
       res.writeHead(500, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ error: e.message }));
