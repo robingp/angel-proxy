@@ -28,7 +28,7 @@ The one with the largest architectural consequence is **C1.3**: rules and fixes 
 | 3 | [Product Requirements Document](phase-03-prd.md) | ✅ Complete — awaiting review |
 | 4 | [Software Architecture](phase-04-architecture.md) | ✅ Complete — awaiting review |
 | 5 | [Database Design](phase-05-database.md) | ✅ Complete — awaiting review |
-| 6 | Scanner Framework (100+ rules) | ⬜ Not started |
+| 6 | [Scanner Framework](phase-06-scanner.md) — 153 rules | ✅ Complete — awaiting review |
 | 7 | Fix Engine | ⬜ Not started |
 | 8 | Admin UI | ⬜ Not started |
 | 9 | Security | ⬜ Not started |
