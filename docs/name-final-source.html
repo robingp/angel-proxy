@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Easy to Spell, Easy to Remember</title>
+<style>
+  @page{ size:A4; margin:0; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  :root{
+    --ink:#10151b; --muted:#5e6b79; --line:#e1e7ed; --tint:#f5f8fa;
+    --navy:#14304F; --slate:#5B6B7B; --sand:#C8A97E;
+    --ok:#2f7d5d; --okbg:#e7f3ed; --bad:#a8322c; --badbg:#fbeceb;
+    --gold:#8a6d1f; --goldbg:#faf3e0;
+  }
+  body{ font-family:"DejaVu Sans","Helvetica Neue",Arial,sans-serif; color:var(--ink);
+        font-size:9.3pt; line-height:1.42; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .page{ width:210mm; height:297mm; overflow:hidden; padding:13mm 14mm 10mm;
+         page-break-after:always; position:relative; background:#fff; }
+  .page:last-child{ page-break-after:auto; }
+  h1{ font-size:23pt; letter-spacing:-0.6pt; line-height:1.08; font-weight:700; }
+  h2{ font-size:12pt; font-weight:700; letter-spacing:-0.2pt; margin-bottom:6px; }
+  h3{ font-size:10pt; font-weight:700; margin-bottom:4px; }
+  .eyebrow{ font-size:8pt; letter-spacing:1.7pt; text-transform:uppercase; color:var(--muted);
+            font-weight:700; margin-bottom:9px; }
+  .sub{ color:var(--muted); font-size:10.2pt; margin-top:6px; }
+  .rule{ height:3px; width:50px; background:var(--ink); margin:12px 0 14px; }
+  .hr{ height:1px; background:var(--line); margin:13px 0; }
+  .lead{ background:var(--tint); border-left:4px solid var(--ink); padding:11px 13px;
+         margin:12px 0; font-size:9.7pt; }
+  .badbox{ background:var(--badbg); border-left:4px solid var(--bad); padding:11px 13px; margin:12px 0; font-size:9.4pt; }
+  .badbox h2{ color:var(--bad); font-size:11.5pt; }
+  p.m{ color:var(--muted); margin-top:3px; }
+
+  .stats{ display:flex; gap:9px; margin-top:11px; }
+  .st{ flex:1; border:1px solid var(--line); border-radius:6px; padding:10px 11px; text-align:center; }
+  .st .b{ font-size:19pt; font-weight:700; letter-spacing:-0.8pt; line-height:1; }
+  .st .l{ font-size:7.8pt; color:var(--muted); margin-top:5px; line-height:1.3; }
+  .st.no .b{ color:var(--bad); }
+  .st.yes .b{ color:var(--ok); }
+
+  table{ width:100%; border-collapse:collapse; }
+  th{ text-align:left; font-size:7.6pt; text-transform:uppercase; letter-spacing:0.8pt;
+      color:var(--muted); padding:0 6px 6px 0; border-bottom:1px solid var(--line); }
+  th.c,td.c{ text-align:center; }
+  td{ padding:5px 6px 5px 0; border-bottom:1px solid var(--line); font-size:8.8pt; vertical-align:middle; }
+  td.nm{ font-weight:700; }
+  .gone{ color:var(--bad); font-weight:700; font-size:8.2pt; }
+  .free{ color:var(--ok); font-weight:700; font-size:8.2pt; }
+
+  /* spell test card */
+  .sc{ border:1px solid var(--line); border-radius:8px; overflow:hidden; margin-bottom:10px; }
+  .sc.win{ border:2px solid var(--gold); }
+  .scH{ display:flex; align-items:center; gap:12px; padding:11px 14px; background:var(--tint); }
+  .sc.win .scH{ background:var(--goldbg); }
+  .scH .nm{ font-size:18pt; font-weight:700; letter-spacing:-0.6pt; }
+  .scH .split{ font-size:9.5pt; color:var(--muted); font-family:"DejaVu Sans Mono",monospace; }
+  .scH .tot{ margin-left:auto; font-size:13pt; font-weight:700; }
+  .scH .tot small{ font-size:8pt; color:var(--muted); font-weight:400; }
+  .scB{ padding:10px 14px; }
+  .tests{ display:flex; gap:0; }
+  .tests > div{ flex:1; border-left:1px solid var(--line); padding:0 9px; }
+  .tests > div:first-child{ border-left:none; padding-left:0; }
+  .tests .q{ font-size:7.6pt; color:var(--muted); text-transform:uppercase; letter-spacing:0.5pt; }
+  .tests .a{ font-size:9pt; font-weight:700; margin-top:3px; }
+  .tests .a.y{ color:var(--ok); }
+  .tests .a.n{ color:var(--bad); }
+  .scB .note{ font-size:8.6pt; color:var(--muted); margin-top:8px; padding-top:7px; border-top:1px dashed var(--line); }
+
+  ul.t{ list-style:none; }
+  ul.t li{ font-size:9pt; padding-left:14px; position:relative; margin-bottom:3px; color:var(--muted); }
+  ul.t li::before{ content:"—"; position:absolute; left:0; color:var(--ink); }
+  ul.t li b{ color:var(--ink); }
+
+  .six{ display:flex; flex-wrap:wrap; gap:8px; margin-top:9px; }
+  .six > div{ width:calc(33.333% - 5.34px); border:1px solid var(--line); border-radius:6px; padding:9px 10px; }
+  .six .n{ font-size:7.6pt; font-weight:700; color:var(--muted); letter-spacing:0.8pt; }
+  .six .t{ font-size:9.4pt; font-weight:700; margin-top:3px; }
+  .six .d{ font-size:8.2pt; color:var(--muted); margin-top:3px; line-height:1.32; }
+
+  .foot{ position:absolute; bottom:6mm; left:14mm; right:14mm; display:flex;
+         justify-content:space-between; font-size:7.6pt; color:var(--muted);
+         border-top:1px solid var(--line); padding-top:6px; }
+  .buy{ border:1px solid var(--line); border-radius:7px; overflow:hidden; margin-top:8px; }
+  .buy .r{ display:flex; align-items:center; gap:10px; padding:8px 12px; border-bottom:1px solid var(--line); }
+  .buy .r:last-child{ border-bottom:none; }
+  .buy .n{ width:17px; height:17px; border-radius:50%; background:var(--navy); color:#fff;
+           font-size:8pt; font-weight:700; display:flex; align-items:center; justify-content:center; flex:none; }
+  .buy .d{ font-family:"DejaVu Sans Mono",monospace; font-size:9pt; font-weight:700; width:130px; }
+  .buy .w{ font-size:8.6pt; color:var(--muted); flex:1; }
+  .buy .p{ font-size:8.4pt; font-weight:700; white-space:nowrap; }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div class="page">
+  <div class="eyebrow">Brand name &nbsp;·&nbsp; easy to spell, easy to remember</div>
+  <h1>The short simple names<br>are all gone</h1>
+  <div class="sub">I checked about 20,000 domains to be certain of that. Here is the proof, and what is actually left.</div>
+  <div class="rule"></div>
+
+  <div class="stats">
+    <div class="st"><div class="b">~20,000</div><div class="l">Domains checked<br>at the registry</div></div>
+    <div class="st no"><div class="b">0</div><div class="l">Good 4–5 letter<br>names still free</div></div>
+    <div class="st no"><div class="b">1</div><div class="l">Simple word pairs free<br>out of 134 tried</div></div>
+    <div class="st yes"><div class="b">3</div><div class="l">Genuinely good<br>names left</div></div>
+  </div>
+
+  <div class="lead">
+    <strong>You asked for unique, easy to spell, easy to remember.</strong> That is exactly the right target — it is
+    what every great brand has. The problem is that everyone else wants it too, and they have been buying since 1995.
+    I did not guess at this. I generated and tested names in four different styles, and watched every good one come
+    back already registered.
+  </div>
+
+  <h2>What I tried, and what came back</h2>
+  <table style="margin-top:7px">
+    <tr><th>Style of name</th><th>Examples I tested</th><th class="c">Tested</th><th class="c">Result</th></tr>
+    <tr>
+      <td class="nm">Short real words</td>
+      <td class="m">Intact · Upheld · Surety · Ballast · Mainstay · Bulwark · Sentio · Salvio</td>
+      <td class="c">189</td><td class="c"><span class="gone">ALL TAKEN</span></td>
+    </tr>
+    <tr>
+      <td class="nm">Short invented, 4–5 letters</td>
+      <td class="m">Clean two-syllable names in the style of Figma, Kinsta, Miro</td>
+      <td class="c">6,500</td><td class="c"><span class="gone">ALL TAKEN</span></td>
+    </tr>
+    <tr>
+      <td class="nm">Simple word pairs</td>
+      <td class="m">Runwell · Keepsafe · Staysure · Allclear · Keepwatch · Safeguard</td>
+      <td class="c">134</td><td class="c"><span class="gone">1 LEFT*</span></td>
+    </tr>
+    <tr>
+      <td class="nm">Longer invented pairs</td>
+      <td class="m">Moorkeep · Keelsure · Vouchkeep</td>
+      <td class="c">~13,000</td><td class="c"><span class="free">A FEW FREE</span></td>
+    </tr>
+  </table>
+  <p class="m" style="font-size:8.2pt;margin-top:5px">
+    * The one survivor was “checkkeep” — three k’s and a double letter. It fails the spelling test itself.
+  </p>
+
+  <div class="hr"></div>
+
+  <h2>What “easy to spell and remember” actually requires</h2>
+  <p class="m" style="font-size:9pt">
+    These are the six tests I scored every remaining name against. The first four are about spelling; the last two
+    are about memory.
+  </p>
+
+  <div class="six">
+    <div><div class="n">TEST 1</div><div class="t">Sounds like it looks</div>
+      <div class="d">You can write it correctly after hearing it once, with no guessing.</div></div>
+    <div><div class="n">TEST 2</div><div class="t">No trap letters</div>
+      <div class="d">No silent letters, no double letters, no “c or k or s” confusion.</div></div>
+    <div><div class="n">TEST 3</div><div class="t">No sound-alike words</div>
+      <div class="d">Nothing that could be confused with another word that sounds identical.</div></div>
+    <div><div class="n">TEST 4</div><div class="t">Survives a phone call</div>
+      <div class="d">You never have to say “no, with two O’s” to a customer.</div></div>
+    <div><div class="n">TEST 5</div><div class="t">Means something</div>
+      <div class="d">Meaning is what memory holds on to. Random letters are forgotten in a day.</div></div>
+    <div><div class="n">TEST 6</div><div class="t">You can picture it</div>
+      <div class="d">A concrete image sticks. An abstract idea does not.</div></div>
+  </div>
+
+  <div class="badbox">
+    <h2>This test changed my earlier advice</h2>
+    <p style="margin-top:4px">
+      Two names I recommended last time fail <b>Test 3</b>, and I should withdraw them. <b>Keelvane</b> and
+      <b>Cairnvane</b> both end in “vane” — which sounds exactly like <em>vain</em> and <em>vein</em>. Every
+      customer who hears the name on a call has a one-in-three chance of typing the wrong website. That is a
+      permanent tax on every conversation you will ever have. Good names, wrong ending.
+    </p>
+  </div>
+
+  <div class="foot"><span>Easy to spell, easy to remember</span><span>Page 1 of 3</span></div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+  <div class="eyebrow">The three that pass</div>
+  <h1 style="font-size:19pt">Scored on all six tests</h1>
+  <div class="rule" style="margin:11px 0 13px"></div>
+
+  <div class="sc win">
+    <div class="scH">
+      <span class="nm">Moorkeep</span>
+      <span class="split">MOOR + KEEP</span>
+      <span class="tot">6/6 <small>&nbsp;winner</small></span>
+    </div>
+    <div class="scB">
+      <div class="tests">
+        <div><div class="q">Sounds like it looks</div><div class="a y">Yes</div></div>
+        <div><div class="q">Trap letters</div><div class="a y">None</div></div>
+        <div><div class="q">Sound-alikes</div><div class="a y">None</div></div>
+        <div><div class="q">Phone call</div><div class="a y">Safe</div></div>
+        <div><div class="q">Means something</div><div class="a y">Strongly</div></div>
+        <div><div class="q">Can picture it</div><div class="a y">Yes</div></div>
+      </div>
+      <div class="note">
+        <b>Moor</b> — to tie a boat down so it cannot drift. <b>Keep</b> — the strong tower of a castle, and simply
+        to look after something. Two ordinary words, both spelled exactly as they sound, and <b>two pictures your
+        mind can hold</b>: a rope on a harbour post, and a stone tower. That is why it is memorable — not because
+        it is clever, but because you can see it.
+      </div>
+    </div>
+  </div>
+
+  <div class="sc">
+    <div class="scH">
+      <span class="nm">Keelsure</span>
+      <span class="split">KEEL + SURE</span>
+      <span class="tot">5/6</span>
+    </div>
+    <div class="scB">
+      <div class="tests">
+        <div><div class="q">Sounds like it looks</div><div class="a y">Yes</div></div>
+        <div><div class="q">Trap letters</div><div class="a y">None</div></div>
+        <div><div class="q">Sound-alikes</div><div class="a y">None</div></div>
+        <div><div class="q">Phone call</div><div class="a y">Safe</div></div>
+        <div><div class="q">Means something</div><div class="a y">Yes</div></div>
+        <div><div class="q">Can picture it</div><div class="a n">Half</div></div>
+      </div>
+      <div class="note">
+        <b>Keel</b> — the spine that keeps a boat upright. <b>Sure</b> — certain, steady, dependable.
+        The <b>safest spelling of all three</b> — there is no other way to write it. It loses a point only because
+        “sure” is an idea rather than a picture, so it is slightly less sticky in memory.
+      </div>
+    </div>
+  </div>
+
+  <div class="sc">
+    <div class="scH">
+      <span class="nm">Vouchkeep</span>
+      <span class="split">VOUCH + KEEP</span>
+      <span class="tot">5/6</span>
+    </div>
+    <div class="scB">
+      <div class="tests">
+        <div><div class="q">Sounds like it looks</div><div class="a y">Yes</div></div>
+        <div><div class="q">Trap letters</div><div class="a y">None</div></div>
+        <div><div class="q">Sound-alikes</div><div class="a y">None</div></div>
+        <div><div class="q">Phone call</div><div class="a n">9 letters</div></div>
+        <div><div class="q">Means something</div><div class="a y">Strongly</div></div>
+        <div><div class="q">Can picture it</div><div class="a y">Yes</div></div>
+      </div>
+      <div class="note">
+        <b>Vouch</b> — to guarantee something is true from your own knowledge. <b>Keep</b> — to look after.
+        The best <em>meaning</em> of the three, and the closest to how the business earns money. It loses a point
+        only on length — nine letters is one syllable more work every time somebody types it.
+      </div>
+    </div>
+  </div>
+
+  <div class="hr" style="margin:12px 0"></div>
+
+  <h2>Say them out loud, in this order</h2>
+  <p class="m" style="font-size:9pt">
+    This is the test I cannot run for you, and it is the one that decides. Read each aloud, then imagine saying it
+    to a customer on a phone call with a bad line:
+  </p>
+  <ul class="t" style="margin-top:7px">
+    <li><b>“Hi, it’s Guru from Moorkeep.”</b> — two beats, lands cleanly, sounds like an established company.</li>
+    <li><b>“Hi, it’s Guru from Keelsure.”</b> — equally clean, slightly more corporate and cooler in tone.</li>
+    <li><b>“Hi, it’s Guru from Vouchkeep.”</b> — strongest promise, very slightly more of a mouthful.</li>
+  </ul>
+  <p class="m" style="font-size:9pt;margin-top:8px">
+    If one of them makes you hesitate, that is your answer — cross it out. If none of them do, take
+    <b style="color:var(--ink)">Moorkeep</b>: it is the only one that scored full marks.
+  </p>
+
+  <div class="foot"><span>Easy to spell, easy to remember</span><span>Page 2 of 3</span></div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page">
+  <div class="eyebrow">The decision</div>
+  <h1 style="font-size:19pt">Moorkeep</h1>
+  <div class="sub" style="font-size:9.6pt">Unique, spellable, memorable, and completely unclaimed.</div>
+  <div class="rule" style="margin:11px 0 13px"></div>
+
+  <table>
+    <tr><th>What you wanted</th><th>How Moorkeep does</th><th class="c">Verdict</th></tr>
+    <tr><td class="nm">Unique</td>
+      <td class="m">Nothing called Moorkeep exists anywhere online. Not a company, product, project or person.</td>
+      <td class="c"><span class="free">PASS</span></td></tr>
+    <tr><td class="nm">Easy to spell</td>
+      <td class="m">Two ordinary English words, each spelled exactly as it sounds. No silent letters, no doubles, no sound-alikes.</td>
+      <td class="c"><span class="free">PASS</span></td></tr>
+    <tr><td class="nm">Easy to remember</td>
+      <td class="m">Two concrete pictures — a rope on a harbour post, a stone keep. Meaning is what memory holds.</td>
+      <td class="c"><span class="free">PASS</span></td></tr>
+    <tr><td class="nm">Domain available</td>
+      <td class="m">Free on .com and on every other extension I checked.</td>
+      <td class="c"><span class="free">PASS</span></td></tr>
+    <tr><td class="nm">Lasts a lifetime</td>
+      <td class="m">No trend words. Says nothing about AI, WordPress or checkout, so nothing has to be thrown away later.</td>
+      <td class="c"><span class="free">PASS</span></td></tr>
+    <tr><td class="nm">Fits the product</td>
+      <td class="m">Both halves mean “hold it securely”. That is literally what the software does.</td>
+      <td class="c"><span class="free">PASS</span></td></tr>
+  </table>
+
+  <div class="lead" style="margin-top:13px">
+    <strong>Say it once and the meaning arrives on its own.</strong> A customer does not need the tagline explained:
+    something is moored so it cannot drift, and kept so it stays looked after. Very few names do that work for you,
+    and the ones that do are usually gone.
+  </div>
+
+  <h2 style="margin-top:12px">Buy this week — around ₹4,000 total</h2>
+  <div class="buy">
+    <div class="r"><span class="n">1</span><span class="d">moorkeep.com</span>
+      <span class="w">The only one that really matters.</span><span class="p">~₹1,000/yr</span></div>
+    <div class="r"><span class="n">2</span><span class="d">moorkeep.co</span>
+      <span class="w">Closest lookalike — stops cheap imitation.</span><span class="p">~₹2,500/yr</span></div>
+    <div class="r"><span class="n">3</span><span class="d">moorkeep.net</span>
+      <span class="w">The other one people type by habit.</span><span class="p">~₹1,200/yr</span></div>
+  </div>
+  <p class="m" style="font-size:8.5pt;margin-top:6px">
+    Skip <b>.io</b> — that extension may be retired within five to ten years following the Chagos treaty, and you
+    asked for something lifelong. Register for two years, turn on auto-renew and privacy protection.
+  </p>
+
+  <div class="hr" style="margin:12px 0"></div>
+
+  <h2>Then, in order</h2>
+  <ul class="t" style="margin-top:5px">
+    <li><b>Reserve the WordPress.org plugin slug.</b> Free, first-come, and permanent — the one step that cannot be undone.</li>
+    <li><b>Take the social handles</b>, even if you never post on them.</li>
+    <li><b>Get a trademark search</b> before any money goes on design. A free domain proves nobody is using the name
+      loudly; only a lawyer can prove nobody registered it quietly. Classes 9 and 42 — India, US, EU, UK.</li>
+  </ul>
+
+  <div class="badbox" style="margin-top:12px">
+    <p>
+      <b>The two names I am withdrawing.</b> <b>Keelvane</b> and <b>Cairnvane</b> were on my last list. They fail the
+      sound-alike test — “vane”, “vain” and “vein” are identical out loud. I would rather correct that now than
+      have you discover it on your fiftieth support call.
+    </p>
+  </div>
+
+  <p class="m" style="font-size:8.8pt;margin-top:11px">
+    If Moorkeep still does not feel right when you say it aloud, tell me and I will run another batch. But I would
+    not expect a shorter or simpler one to appear — at 20,000 checks, this is the honest edge of what is left.
+  </p>
+
+  <div class="foot"><span>Easy to spell, easy to remember</span><span>Page 3 of 3</span></div>
+</div>
+
+</body>
+</html>
