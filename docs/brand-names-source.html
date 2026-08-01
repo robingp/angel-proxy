@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Brand Name Shortlist</title>
+<style>
+  @page { size:A4; margin:0; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  :root{
+    --ink:#11161c; --muted:#5f6c7b; --line:#e0e6ec; --tint:#f5f8fa;
+    --ok:#2f7d5d; --okbg:#e7f3ed; --star:#8a6d1f; --starbg:#faf3e0;
+  }
+  body{ font-family:"DejaVu Sans","Helvetica Neue",Arial,sans-serif; color:var(--ink);
+        font-size:9.4pt; line-height:1.42; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .page{ width:210mm; height:297mm; overflow:hidden; padding:13mm 14mm 10mm;
+         page-break-after:always; position:relative; background:#fff; }
+  .page:last-child{ page-break-after:auto; }
+
+  h1{ font-size:23pt; letter-spacing:-0.5pt; line-height:1.1; font-weight:700; }
+  h2{ font-size:12pt; font-weight:700; letter-spacing:-0.2pt; margin-bottom:6px; }
+  .eyebrow{ font-size:8pt; letter-spacing:1.7pt; text-transform:uppercase; color:var(--muted);
+            font-weight:700; margin-bottom:9px; }
+  .sub{ color:var(--muted); font-size:10.2pt; margin-top:6px; }
+  .rule{ height:3px; width:50px; background:var(--ink); margin:12px 0 15px; }
+  .hr{ height:1px; background:var(--line); margin:13px 0; }
+
+  .lead{ background:var(--tint); border-left:4px solid var(--ink); padding:11px 13px;
+         margin:13px 0; font-size:9.8pt; }
+
+  .three{ display:flex; gap:9px; margin-top:11px; }
+  .f{ flex:1; border:1px solid var(--line); border-radius:6px; padding:10px 11px; }
+  .f .n{ font-size:8pt; font-weight:700; color:var(--muted); letter-spacing:1pt; }
+  .f .t{ font-size:10pt; font-weight:700; margin:4px 0 4px; }
+  .f .d{ font-size:8.6pt; color:var(--muted); line-height:1.35; }
+
+  /* name card */
+  .card{ border:1px solid var(--line); border-radius:8px; padding:0; margin-bottom:11px; overflow:hidden; }
+  .card.top{ border-width:2px; border-color:var(--star); }
+  .chead{ display:flex; align-items:stretch; }
+  .cswatch{ width:74px; flex:none; }
+  .cswatch div{ height:33.34%; }
+  .cmain{ flex:1; padding:11px 13px; }
+  .cname{ display:flex; align-items:baseline; gap:9px; }
+  .cname .nm{ font-size:16pt; font-weight:700; letter-spacing:-0.5pt; }
+  .cname .pron{ font-size:8.4pt; color:var(--muted); font-style:italic; }
+  .badge{ font-size:7.4pt; font-weight:700; padding:2.5px 7px; border-radius:20px;
+          letter-spacing:0.4pt; margin-left:auto; }
+  .b-star{ background:var(--starbg); color:var(--star); }
+  .b-ok{ background:var(--okbg); color:var(--ok); }
+  .cmean{ font-size:9pt; margin-top:6px; }
+  .cmean b{ font-weight:700; }
+  .cwhy{ font-size:9pt; color:var(--muted); margin-top:5px; }
+  .cfoot{ border-top:1px solid var(--line); background:#fcfdfe; padding:7px 13px 7px 87px;
+          display:flex; gap:14px; align-items:center; font-size:8.3pt; }
+  .cfoot .k{ color:var(--muted); }
+  .cfoot .v{ font-weight:700; }
+  .hex{ display:inline-block; font-family:"DejaVu Sans Mono",monospace; font-size:7.6pt;
+        color:var(--muted); }
+
+  .mini{ display:flex; gap:9px; flex-wrap:wrap; }
+  .m{ width:calc(50% - 4.5px); border:1px solid var(--line); border-radius:7px; overflow:hidden; }
+  .mhead{ display:flex; }
+  .mswatch{ width:16px; flex:none; }
+  .mswatch div{ height:33.34%; }
+  .mbody{ flex:1; padding:8px 10px; }
+  .m .nm{ font-size:11.5pt; font-weight:700; letter-spacing:-0.3pt; }
+  .m .mean{ font-size:8.4pt; margin-top:3px; }
+  .m .why{ font-size:8.4pt; color:var(--muted); margin-top:3px; }
+  
+  table{ width:100%; border-collapse:collapse; }
+  th{ text-align:left; font-size:7.8pt; text-transform:uppercase; letter-spacing:0.9pt;
+      color:var(--muted); padding:0 7px 6px 0; border-bottom:1px solid var(--line); }
+  td{ padding:4px 7px 4px 0; border-bottom:1px solid var(--line); font-size:8.8pt; vertical-align:top; }
+  td.nm{ font-weight:700; width:78px; }
+  td.c{ text-align:center; width:38px; }
+  .tick{ color:var(--ok); font-weight:700; }
+
+  ul.tick2{ list-style:none; }
+  ul.tick2 li{ font-size:9pt; padding-left:15px; position:relative; margin-bottom:3px; color:var(--muted); }
+  ul.tick2 li::before{ content:"—"; position:absolute; left:0; color:var(--ink); }
+
+  .foot{ position:absolute; bottom:6mm; left:14mm; right:14mm; display:flex;
+         justify-content:space-between; font-size:7.6pt; color:var(--muted);
+         border-top:1px solid var(--line); padding-top:6px; }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div class="page">
+  <div class="eyebrow">Brand naming &nbsp;·&nbsp; shortlist for decision</div>
+  <h1>Eight names, all free</h1>
+  <div class="sub">Every name here is invented, has almost no internet footprint, and has its domain available.</div>
+  <div class="rule"></div>
+
+  <div class="lead">
+    <strong>Why the old name had to go.</strong> “AI” in the name promises the one thing we said we are not
+    building, and it will date fast. “Guru” breaks our own brand rule against guru / ninja / wizard language.
+    Both are also crowded trademarks. Renaming now is free. Renaming later is not — a competitor of ours has
+    now renamed three times in five years and is publicly resented for it.
+  </div>
+
+  <h2>How these eight survived</h2>
+  <p style="color:var(--muted);font-size:9pt;margin-top:3px">
+    I started from real words — Belay, Handrail, Airlock, Backstop, Sentry, Keel, Rewind — and every single one
+    was already a software company, several in neighbouring categories where confusion would be fatal. Even
+    <em>Keelpoint</em>, which I recommended earlier, turned out to have its domain taken. So I invented names instead
+    and put roughly 1,700 of them through three filters.
+  </p>
+
+  <div class="three">
+    <div class="f">
+      <div class="n">FILTER 1</div>
+      <div class="t">Domain is free</div>
+      <div class="d">Checked at the registry, not guessed. Around 1,700 invented names tested. Roughly 9 in 10 were already taken.</div>
+    </div>
+    <div class="f">
+      <div class="n">FILTER 2</div>
+      <div class="t">Not on the internet</div>
+      <div class="d">Searched each survivor. Anything with an existing product, company or project was dropped.</div>
+    </div>
+    <div class="f">
+      <div class="n">FILTER 3</div>
+      <div class="t">Means something</div>
+      <div class="d">Every name is built from two real words about holding steady, staying safe, or telling the truth.</div>
+    </div>
+  </div>
+
+  <div class="hr"></div>
+
+  <h2>Why none of these colours are green, amber or red</h2>
+  <p style="color:var(--muted);font-size:9pt;margin-top:3px">
+    This is deliberate, and it is a rule we set in the very first document. Inside the product, green means
+    “working”, amber means “needs a decision” and red means “broken”. Those three colours have to mean
+    <em>only</em> that. If the brand itself were green, a customer glancing at the screen could not tell our logo
+    from a healthy status — and on the one screen that matters, that confusion is expensive.
+  </p>
+  <p style="font-size:9pt;margin-top:7px">
+    So every palette below is built from navy, indigo, graphite, slate and warm metal. Calm, serious, and
+    incapable of being mistaken for a status light.
+  </p>
+
+  <div style="display:flex;gap:7px;margin-top:12px">
+    <div style="flex:1;border:1px solid var(--line);border-radius:6px;padding:9px 11px">
+      <div style="font-size:8pt;font-weight:700;color:var(--muted);letter-spacing:1pt">RESERVED FOR STATUS — NEVER BRAND</div>
+      <div style="display:flex;gap:5px;margin-top:7px">
+        <div style="flex:1"><div style="height:26px;border-radius:3px;background:#2f7d5d"></div><div class="hex">healthy</div></div>
+        <div style="flex:1"><div style="height:26px;border-radius:3px;background:#b4741a"></div><div class="hex">decide</div></div>
+        <div style="flex:1"><div style="height:26px;border-radius:3px;background:#a8322c"></div><div class="hex">broken</div></div>
+      </div>
+    </div>
+    <div style="flex:1;border:1px solid var(--line);border-radius:6px;padding:9px 11px">
+      <div style="font-size:8pt;font-weight:700;color:var(--muted);letter-spacing:1pt">AVAILABLE TO THE BRAND</div>
+      <div style="display:flex;gap:5px;margin-top:7px">
+        <div style="flex:1"><div style="height:26px;border-radius:3px;background:#14304f"></div><div class="hex">navy</div></div>
+        <div style="flex:1"><div style="height:26px;border-radius:3px;background:#22264b"></div><div class="hex">indigo</div></div>
+        <div style="flex:1"><div style="height:26px;border-radius:3px;background:#2b2f36"></div><div class="hex">graphite</div></div>
+        <div style="flex:1"><div style="height:26px;border-radius:3px;background:#a9633c"></div><div class="hex">copper</div></div>
+        <div style="flex:1"><div style="height:26px;border-radius:3px;background:#c8a97e"></div><div class="hex">sand</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lead" style="margin-top:14px">
+    <strong>What I need from you:</strong> pick one, or tell me which two you like and I will take them further.
+    Nothing gets bought or registered until you choose — and a lawyer must clear the winner before we spend
+    anything on branding.
+  </div>
+
+  <div class="foot"><span>Brand name shortlist</span><span>Page 1 of 3</span></div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+  <div class="eyebrow">The three strongest</div>
+  <h1 style="font-size:19pt">Recommended</h1>
+  <div class="rule" style="margin:11px 0 14px"></div>
+
+  <!-- MOORKEEP -->
+  <div class="card top">
+    <div class="chead">
+      <div class="cswatch">
+        <div style="background:#14304F"></div><div style="background:#5B6B7B"></div><div style="background:#C8A97E"></div>
+      </div>
+      <div class="cmain">
+        <div class="cname">
+          <span class="nm">Moorkeep</span>
+          <span class="pron">“MOOR-keep”</span>
+          <span class="badge b-star">MY RECOMMENDATION</span>
+        </div>
+        <div class="cmean">
+          <b>Moor</b> — to tie a boat down so it cannot drift away. &nbsp;<b>Keep</b> — the strongest tower of a
+          castle, and also simply “to keep” something: to look after it.
+        </div>
+        <div class="cwhy">
+          Two words that both mean <em>hold it securely</em> — one from the harbour, one from the castle. Together they
+          say maintenance and protection in a single breath, which is exactly the product. It sounds solid and
+          old-English rather than clever, and it is the easiest of the eight to say once and spell correctly.
+        </div>
+      </div>
+    </div>
+    <div class="cfoot">
+      <span class="k">Feels like</span><span class="v">Dependable · anchored · calm</span>
+      <span class="k">Palette</span>
+      <span class="hex">#14304F Harbour Navy &nbsp; #5B6B7B Slate &nbsp; #C8A97E Rope Sand</span>
+    </div>
+  </div>
+
+  <!-- VOUCHKEEP -->
+  <div class="card">
+    <div class="chead">
+      <div class="cswatch">
+        <div style="background:#22264B"></div><div style="background:#6A7190"></div><div style="background:#9C7B3F"></div>
+      </div>
+      <div class="cmain">
+        <div class="cname">
+          <span class="nm">Vouchkeep</span>
+          <span class="pron">“VOWCH-keep”</span>
+          <span class="badge b-ok">STRONG</span>
+        </div>
+        <div class="cmean">
+          <b>Vouch</b> — to guarantee something is true, from your own knowledge. &nbsp;<b>Keep</b> — to look after,
+          and to hold safe.
+        </div>
+        <div class="cwhy">
+          This is the name that matches how we plan to make money. We are not selling a dashboard; we are selling
+          proof — a record the customer can hand to their own client. “We vouch for it, and we keep it” is the
+          whole business in five words.
+        </div>
+      </div>
+    </div>
+    <div class="cfoot">
+      <span class="k">Feels like</span><span class="v">Trustworthy · documented · accountable</span>
+      <span class="k">Palette</span>
+      <span class="hex">#22264B Ink Indigo &nbsp; #6A7190 Dusk &nbsp; #9C7B3F Muted Gold</span>
+    </div>
+  </div>
+
+  <!-- KEELVANE -->
+  <div class="card">
+    <div class="chead">
+      <div class="cswatch">
+        <div style="background:#0F2E3D"></div><div style="background:#2C6E8F"></div><div style="background:#94A8B4"></div>
+      </div>
+      <div class="cmain">
+        <div class="cname">
+          <span class="nm">Keelvane</span>
+          <span class="pron">“KEEL-vane”</span>
+          <span class="badge b-ok">STRONG</span>
+        </div>
+        <div class="cmean">
+          <b>Keel</b> — the spine along the bottom of a boat that keeps it upright. &nbsp;<b>Vane</b> — the little
+          blade on a roof that shows which way the wind is blowing.
+        </div>
+        <div class="cwhy">
+          One word for staying steady, one for reading the conditions — which is literally what the plugin does:
+          watch what is happening, and keep the site upright through it. The most technical-sounding of the three,
+          and the best fit if we later sell to developers and agencies rather than shop owners.
+        </div>
+      </div>
+    </div>
+    <div class="cfoot">
+      <span class="k">Feels like</span><span class="v">Steady · instrumented · engineered</span>
+      <span class="k">Palette</span>
+      <span class="hex">#0F2E3D Deep Sea &nbsp; #2C6E8F Signal Blue &nbsp; #94A8B4 Steel Mist</span>
+    </div>
+  </div>
+
+  <div class="hr" style="margin:14px 0 12px"></div>
+
+  <h2>How to choose between these three</h2>
+  <p style="color:var(--muted);font-size:9pt;margin-top:3px">
+    They are all available and all defensible, so the decision is about who you most want to sound right to.
+  </p>
+  <ul class="tick2" style="margin-top:7px">
+    <li><b style="color:var(--ink)">Moorkeep</b> if the buyer is a shop owner who wants to stop worrying. Warmest and plainest.</li>
+    <li><b style="color:var(--ink)">Vouchkeep</b> if the buyer is an agency selling proof to their own clients. Most commercial.</li>
+    <li><b style="color:var(--ink)">Keelvane</b> if the buyer is a developer. Most technical, ages best as the product grows.</li>
+  </ul>
+
+  <div class="foot"><span>Brand name shortlist</span><span>Page 2 of 3</span></div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page">
+  <div class="eyebrow">Also available</div>
+  <h1 style="font-size:19pt">Five more, all free</h1>
+  <div class="sub" style="font-size:9.6pt">Good names that lost only on feel, not on availability.</div>
+  <div class="rule" style="margin:11px 0 13px"></div>
+
+  <div class="mini">
+    <div class="m">
+      <div class="mhead">
+        <div class="mswatch"><div style="background:#3A3F44"></div><div style="background:#6E8CA0"></div><div style="background:#A8A296"></div></div>
+        <div class="mbody">
+          <div class="nm">Cairnvane</div>
+          <div class="mean"><b>Cairn</b> — a stack of stones left to mark the safe path across dangerous ground.</div>
+          <div class="why">The most poetic of the eight. Beautiful meaning; slightly harder to explain quickly.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="m">
+      <div class="mhead">
+        <div class="mswatch"><div style="background:#23262B"></div><div style="background:#3F6FA8"></div><div style="background:#D9D5CE"></div></div>
+        <div class="mbody">
+          <div class="nm">Salvpoint</div>
+          <div class="mean"><b>Salv</b> — from Latin <em>salvus</em>, safe and unharmed (as in salvage). <b>Point</b> — an exact moment.</div>
+          <div class="why">“The moment at which it is safe.” Clinical and precise. Reads slightly medical.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="m">
+      <div class="mhead">
+        <div class="mswatch"><div style="background:#2B2F36"></div><div style="background:#A9633C"></div><div style="background:#7C8791"></div></div>
+        <div class="mbody">
+          <div class="nm">Plumbward</div>
+          <div class="mean"><b>Plumb</b> — perfectly upright and true, from a builder’s plumb line. <b>Ward</b> — to guard.</div>
+          <div class="why">“Keeping things true.” Real craftsman’s language. Some will misread it as plumbing.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="m">
+      <div class="mhead">
+        <div class="mswatch"><div style="background:#3B3026"></div><div style="background:#B08968"></div><div style="background:#64707D"></div></div>
+        <div class="mbody">
+          <div class="nm">Keptward</div>
+          <div class="mean"><b>Kept</b> — looked after. <b>Ward</b> — guarded, and also someone in your protection.</div>
+          <div class="why">Quietest and gentlest name here. Possibly too quiet to be memorable.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="m">
+      <div class="mhead">
+        <div class="mswatch"><div style="background:#1B3B5F"></div><div style="background:#96703F"></div><div style="background:#AFC0CC"></div></div>
+        <div class="mbody">
+          <div class="nm">Trueberth</div>
+          <div class="mean"><b>Berth</b> — a safe place for a ship to rest. <b>True</b> — accurate, and faithful.</div>
+          <div class="why">Warm and safe-sounding. “Berth” is sometimes misheard as “birth” on a call.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="m" style="border-style:dashed">
+      <div class="mhead">
+        <div class="mswatch"><div style="background:#e0e6ec"></div><div style="background:#e0e6ec"></div><div style="background:#e0e6ec"></div></div>
+        <div class="mbody">
+          <div class="nm" style="color:var(--muted)">Moorward</div>
+          <div class="mean" style="color:var(--muted)">Free too — and historically a real job: the appointed <em>keeper of a moor</em>.</div>
+          <div class="why">Lovely provenance, but too close to Moorkeep to run both.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hr" style="margin:10px 0"></div>
+
+  <h2>Availability, checked not guessed</h2>
+  <table style="margin-top:6px">
+    <tr><th>Name</th><th class="c">.com</th><th class="c">.io</th><th class="c">.app</th><th class="c">.dev</th><th class="c">.co</th><th class="c">.net</th><th>Found anywhere online?</th></tr>
+    <tr><td class="nm">Moorkeep</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td>Nothing</td></tr>
+    <tr><td class="nm">Vouchkeep</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td>Nothing</td></tr>
+    <tr><td class="nm">Keelvane</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td>Nothing</td></tr>
+    <tr><td class="nm">Cairnvane</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td>Nothing</td></tr>
+    <tr><td class="nm">Salvpoint</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td>Nothing</td></tr>
+    <tr><td class="nm">Plumbward</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td>Nothing</td></tr>
+    <tr><td class="nm">Keptward</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td>Nothing</td></tr>
+    <tr><td class="nm">Trueberth</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td class="c tick">✓</td><td>Nothing</td></tr>
+  </table>
+
+  <div class="lead" style="margin-top:13px">
+    <strong>One honest warning.</strong> A free domain and an empty search result are <em>not</em> a legal clearance.
+    They tell us nobody is using the name loudly; they cannot tell us nobody has registered it quietly. Before
+    spending a rupee on a logo, a lawyer should run a proper trademark search in the software classes for India,
+    the US, the EU and the UK. That check is slow and cheap. Skipping it is fast and expensive.
+  </div>
+
+  <h2 style="margin-top:10px">What happens after you pick</h2>
+  <ul class="tick2" style="margin-top:5px">
+    <li>Buy the <b style="color:var(--ink)">.com</b> the same day — a few hundred rupees, and it stops anyone else taking it.</li>
+    <li>Start the trademark search on the winner. Do this before any design work.</li>
+    <li>Reserve the WordPress.org plugin slug — first-come and permanent — and the social handles.</li>
+    <li>Say it out loud on a phone call. If you have to spell it twice, tell me and we pick another.</li>
+  </ul>
+
+  <div class="foot"><span>Brand name shortlist</span><span>Page 3 of 3</span></div>
+</div>
+
+</body>
+</html>
