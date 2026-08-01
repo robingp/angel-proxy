@@ -22,6 +22,7 @@ The one with the largest architectural consequence is **C1.3**: rules and fixes 
 | Phase | Document | Status |
 |---|---|---|
 | — | [Standing Constraints](constraints.md) | 🔒 Binding on all phases |
+| — | [**The Recommended Plan**](recommended-plan.md) | ⭐ **Start here.** Amends the P3 §9 roadmap |
 | 1 | [Vision](phase-01-vision.md) | ✅ Approved — corrected by Phase 2 (see Phase 1 §14) |
 | 2 | [Market Research](phase-02-market-research.md) | ✅ Complete |
 | 3 | [Product Requirements Document](phase-03-prd.md) | ✅ Complete — awaiting review |
