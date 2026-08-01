@@ -482,18 +482,15 @@ Constrained by C1.4 — no trialware, and **safety is never the paywall** (P1 §
 
 The free tier is genuinely and permanently useful for Priya with one site. Paid begins where the *business* value begins: scale, automation, and evidence.
 
-### 11.2 Sequencing — the recommendation that matters most here
+### 11.2 Sequencing — superseded
 
-C1 commits us to shipping on WordPress.org. Under solo part-time resourcing, **the order is now a survival question, not a preference.**
+**This section is superseded by the founder decision recorded in [The Recommended Plan §7](recommended-plan.md#7-money--free-first-premium-later).**
 
-A free plugin on the repository can reach thousands of installs quickly, and support load scales with installs regardless of revenue. A part-time solo founder with 5,000 free installs and no paid base has built a full-time unpaid support job.
+The approach is now **free first, premium later** — build an install base on WordPress.org, monetise afterwards. This follows the distribution-play pattern that Elementor, Rank Math and Yoast all won with (P2 §2).
 
-**Recommendation: premium-first, repository later.**
+The support-load risk that motivated the earlier premium-first recommendation is real and is managed by the five safeguards in Recommended Plan §7.3 — staged rollout with no launch marketing, a deliberately narrow free tier, documentation before release, a stated community-support-only policy, and a pre-agreed support-load threshold that halts distribution.
 
-1. **M4:** launch premium-only, direct. Small number of paying customers, high engagement, direct feedback, real revenue per support hour. This is precisely the WP Rocket model — the archetype recommended in P2 §6.4, which has no free tier and is the most respected product in its category.
-2. **After** the support load per customer is measured and the documentation has absorbed the common questions, submit the free tier to the repository as a distribution channel.
-
-C1's build-compliant-from-commit-one rule is unaffected. This is only about *when* we submit — and submitting later costs nothing while submitting early could cost the project.
+The free/premium split in §11.1 above is revised by Recommended Plan §7.4. The rule in §11.1 that safety is never the paywall is unchanged and is sharpened there: **the free tier never modifies the site, and anyone who gets the mutation pipeline gets the full safety kernel with it.**
 
 ---
 

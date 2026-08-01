@@ -69,7 +69,10 @@ The five-year destination is to be the layer through which all changes to a Word
 | Resourcing | P3 §1 | Solo founder, part-time (12–20 hrs/week). Roadmap uses capability gates, not dates |
 | Liability pricing, precisely | P3 §1.2 | We sell liability *evidence* (the Ledger), not liability *assumption* (SLAs, indemnity). The latter needs people |
 | v1 scope | P3 §2 | One change source (plugin/theme updates), one differentiator (revenue-path verification) |
-| Launch order | P3 §11.2 | Premium-first, direct. WordPress.org submission after support load is measured — free-tier support load is the main threat to a part-time solo founder |
+| Build order | Plan §3 | Read-only first. v0.1 Checkout Monitor → v0.2 attribution → v1.0 safety kernel. Never ship mutation as the first production code |
+| Go to market | Plan §7 | **Free first, premium later.** Distribution-play pattern. Staged rollout with a pre-agreed support-load threshold that halts growth |
+| The paywall line | Plan §7.5 | The free tier never modifies the site. Anyone who gets the mutation pipeline gets the full safety kernel with it — rollback is never an upgrade |
+| UI stack | Plan §5.4 | Server-rendered with interactivity islands, not a React SPA — overrules the brief on maintenance-cost grounds |
 
 ---
 

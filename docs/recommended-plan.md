@@ -175,15 +175,58 @@ Priya opens wp-admin on Saturday morning expecting bad news, sees one calm sente
 
 ---
 
-## 7. Money
+## 7. Money — free first, premium later
 
-**v0.1 pricing: £19–29/month for a single store; £49–79/month for up to ten.**
+**Founder decision:** ship free, build an install base, monetise afterwards. This supersedes the premium-first recommendation previously in this section and in P3 §11.2.
 
-The logic is P3 §1.2 — we sell evidence and prevented loss, not a response promise. Dana compares that number to one hour of broken checkout, not to a £2 plugin. Do not anchor to the €1.99 fleet-tool market (P2 §5.1); you are not selling a dashboard.
+### 7.1 Why this is defensible
 
-Sell **direct, premium-only** at first (P3 §11.2). WordPress.org comes after you know your support load per customer — a free tier reaching thousands of installs while you have no paid base is a full-time unpaid support job, and that is the most likely way this quietly ends.
+Phase 2 §2 classifies Elementor, Rank Math and Yoast as **distribution plays** — free tier at scale, then upsell. Every one of them won that way, and WordPress.org is the largest distribution channel in the ecosystem. For an unknown solo founder with no track record, no reviews and no trust signals, premium-only is a genuinely hard first sale. Free installs generate the reviews and social proof that make the eventual paid product sellable at all.
 
-**Ten paying customers is the goal for month six.** Not a thousand users. Ten people who pay, answer your emails, and tell you what is wrong.
+The install base is also an asset that compounds while you sleep, which matters enormously at 15 hours a week.
+
+### 7.2 The risk, stated once
+
+Support load scales with installs, not with revenue. Thousands of free installs against one part-time person is the most likely way this quietly ends — not from failure, but from every spare hour going to support instead of building.
+
+This is a real risk with a real mitigation. It is not a reason to abandon the decision.
+
+### 7.3 The five safeguards that make free-first work
+
+1. **Staged rollout, not a launch.** Private beta (10–20 invited sites) → public on WordPress.org **with no marketing** → marketing only once support load per install is measured and falling. Distribution is a tap you open gradually, not a switch.
+2. **Narrow, not crippled.** The free tier does one job completely for one site. Narrow scope is the support-load control — every feature you don't ship is a category of question you never answer.
+3. **Documentation ships before the plugin does.** Every question you can anticipate, answered before the first install. Cheaper than support, permanently (P3 §1.3).
+4. **Stated support policy.** Free tier is forum-only, best-effort, community support. This is normal and expected on WordPress.org — nobody is offended by it. Email support is a paid feature.
+5. **A throttle with a number attached.** Track support contacts per 100 installs per month (P3 §10.3) from install #1. Agree the threshold now, in advance: *if it exceeds X, stop all distribution effort and fix self-serve before growing further.* A threshold set in advance is a decision; set in the moment it is a rationalisation.
+
+### 7.4 The revised free / premium split
+
+The ladder is **free tells you, premium tells you more and acts.**
+
+| Free — forever, genuinely useful | Premium — later |
+|---|---|
+| Checkout + critical path verification, **one site** | Multiple sites and fleet view |
+| Current status and recent history (limited retention) | Extended retention and full ledger export |
+| Email alerts on breakage | Slack / webhook / SMS delivery |
+| Manual and basic scheduled checks | Change attribution timeline (v0.2) |
+| Community support | White-label client reports · email support |
+| | **The safety kernel: apply changes with auto-rollback (v1.0)** |
+
+### 7.5 The one line that must not be crossed
+
+C1.4 and P1 §3 (value 4) forbid paywalling safety. The split above honours that with a clean rule:
+
+> **The free tier never modifies the site. Anyone who gets the mutation pipeline gets the full safety kernel with it.**
+
+Rollback is never an upgrade. It is inseparable from the feature it protects — you cannot buy "apply updates" without "revert them automatically," at any tier. That keeps the promise intact and makes the premium anchor honest: you are not selling safety, you are selling *action*, which arrives with its safety attached.
+
+### 7.6 Targets
+
+- **Month 6:** free product live, 20+ real installs, support load measured and understood.
+- **Month 12:** meaningful install base with genuine reviews, and the first premium feature shipped to it.
+- Pricing when you get there: anchor to an hour of broken checkout, not to the €1.99 fleet-tool floor (P2 §5.1). The Ledger and the mutation pipeline are what justify a real price.
+
+Success at month six is now **install base plus a support load you can carry**, not revenue. Judge it on those two numbers together — installs alone is the vanity metric this whole documentation set has rejected (P1 §7.1).
 
 ---
 
@@ -195,9 +238,9 @@ Defining failure in advance is what stops a project consuming three years by inc
 |---|---|
 | **Week 2** | Nobody winces. If twenty operators cannot recall a recent painful breakage and do not care how they'd learn checkout broke, the premise is wrong. Stop here — cost: two weeks. |
 | **Week 3** | All three spikes fail on mainstream shared hosting. The product may only be viable on managed hosting, which is a much smaller market and a different plan. |
-| **Month 4** | v0.1 ships and nobody converts after 30 conversations. The pain is real but not purchase-motivating — reconsider the buyer, not the product. |
-| **Month 6** | Fewer than five paying customers. Not fatal, but stop building features and fix distribution — more product will not help. |
-| **Month 9** | Support contacts per customer are not falling (P3 §10.3). The product is not self-serve enough to scale part-time; fix that before growing. |
+| **Month 4** | v0.1 ships to the private beta and nobody keeps it installed. The pain is real but the product isn't the answer — reconsider before public release. |
+| **Month 6** | Support contacts per 100 installs exceed the threshold agreed in §7.3.5. Not fatal — but stop distribution entirely and fix self-serve before growing. Under free-first this is the binding constraint, not revenue. |
+| **Month 9** | Install base growing but nobody engages with the paid waiting list or says they'd pay. Free-first has produced users, not a business — revisit the split before building premium. |
 | **Any time** | An escaped failure destroys a customer site and you cannot recover it. Stop shipping mutation until you understand exactly why. |
 
 ---
