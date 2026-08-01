@@ -6,10 +6,22 @@ The design record for the product. Each phase is a standalone document, detailed
 
 ---
 
+## Standing constraints — read before any phase
+
+**[Standing Constraints](constraints.md)** binds every phase from 3 onward. Two constraints, both by founder decision:
+
+- **C1** — the plugin must be publishable on WordPress.org and pass review
+- **C2** — the plugin must meet an advanced security standard, beyond ordinary plugin hygiene
+
+The one with the largest architectural consequence is **C1.3**: rules and fixes are declarative data interpreted by an executor that ships in the plugin. They are never remotely-delivered code. This is a repository rule, a supply-chain defence, and the same principle Phase 1 §6.3 already applies to AI — applied uniformly.
+
+---
+
 ## Phase tracker
 
 | Phase | Document | Status |
 |---|---|---|
+| — | [Standing Constraints](constraints.md) | 🔒 Binding on all phases |
 | 1 | [Vision](phase-01-vision.md) | ✅ Approved — corrected by Phase 2 (see Phase 1 §14) |
 | 2 | [Market Research](phase-02-market-research.md) | ✅ Complete — awaiting review |
 | 3 | Product Requirements Document | ⬜ Blocked on decisions 13.1 and 13.2 |
@@ -50,6 +62,9 @@ The five-year destination is to be the layer through which all changes to a Word
 | Pricing category | P2 §5.4 | Price against liability and labour, not per-site tooling |
 | Build vs rent | P2 §6.10 | Consume vulnerability data (Patchstack). Never build the dataset |
 | Scope discipline | P1 §10 | Ten explicit non-goals, including: not a chatbot, not a writing tool, not a WAF, not a backup product, not a suite |
+| WordPress.org | C1 | Ship a free plugin to the repository and pass review. Build compliant from commit one; submit once the engine is hardened. Resolves P1 §12.5 |
+| Rules & fixes | C1.3 | Declarative data interpreted by a shipped executor — never remotely-delivered code |
+| Security bar | C2 | Advanced standard: triple gate on every entry point, custom least-privilege capabilities, fix engine as a privileged subsystem, signed premium updates, third-party audit before 1.0 |
 
 ---
 
@@ -62,7 +77,9 @@ Phase 3 cannot be finalised until 13.1 and 13.2 are answered.
 - **P2 §13.3** — confirm partner-don't-build on vulnerability data
 - **P2 §13.4** — commission trademark clearance (cheap, slow, irreversible if skipped)
 - **P2 §13.5** — authorise customer discovery on the seven questions in P2 §11
-- **P1 §12.3–12.6** — naming, WordPress.org free tier, v1 headline, team/budget/timeline
+- **P1 §12.3, §12.4, §12.6** — naming, v1 headline, team/budget/timeline
+
+*(P1 §12.5, the WordPress.org free tier, is now decided — see C1.0.)*
 
 ---
 
