@@ -23,8 +23,8 @@ The one with the largest architectural consequence is **C1.3**: rules and fixes 
 |---|---|---|
 | — | [Standing Constraints](constraints.md) | 🔒 Binding on all phases |
 | 1 | [Vision](phase-01-vision.md) | ✅ Approved — corrected by Phase 2 (see Phase 1 §14) |
-| 2 | [Market Research](phase-02-market-research.md) | ✅ Complete — awaiting review |
-| 3 | Product Requirements Document | ⬜ Blocked on decisions 13.1 and 13.2 |
+| 2 | [Market Research](phase-02-market-research.md) | ✅ Complete |
+| 3 | [Product Requirements Document](phase-03-prd.md) | ✅ Complete — awaiting review |
 | 4 | Software Architecture | ⬜ Not started |
 | 5 | Database Design | ⬜ Not started |
 | 6 | Scanner Framework (100+ rules) | ⬜ Not started |
@@ -65,21 +65,24 @@ The five-year destination is to be the layer through which all changes to a Word
 | WordPress.org | C1 | Ship a free plugin to the repository and pass review. Build compliant from commit one; submit once the engine is hardened. Resolves P1 §12.5 |
 | Rules & fixes | C1.3 | Declarative data interpreted by a shipped executor — never remotely-delivered code |
 | Security bar | C2 | Advanced standard: triple gate on every entry point, custom least-privilege capabilities, fix engine as a privileged subsystem, signed premium updates, third-party audit before 1.0 |
+| Resourcing | P3 §1 | Solo founder, part-time (12–20 hrs/week). Roadmap uses capability gates, not dates |
+| Liability pricing, precisely | P3 §1.2 | We sell liability *evidence* (the Ledger), not liability *assumption* (SLAs, indemnity). The latter needs people |
+| v1 scope | P3 §2 | One change source (plugin/theme updates), one differentiator (revenue-path verification) |
+| Launch order | P3 §11.2 | Premium-first, direct. WordPress.org submission after support load is measured — free-tier support load is the main threat to a part-time solo founder |
 
 ---
 
-## Open decisions blocking progress
+## Open decisions
 
-Phase 3 cannot be finalised until 13.1 and 13.2 are answered.
+Resolved: P2 §13.1 (wedge revision, accepted) · P2 §13.2 (liability pricing, accepted — read with P3 §1.2) · P1 §12.5 (WordPress.org, yes — see C1.0) · P1 §12.6 (resourcing: solo, part-time).
 
-- **P2 §13.1** — accept the wedge revision?
-- **P2 §13.2** — accept the pricing-category shift?
+Still open:
+
 - **P2 §13.3** — confirm partner-don't-build on vulnerability data
 - **P2 §13.4** — commission trademark clearance (cheap, slow, irreversible if skipped)
 - **P2 §13.5** — authorise customer discovery on the seven questions in P2 §11
-- **P1 §12.3, §12.4, §12.6** — naming, v1 headline, team/budget/timeline
-
-*(P1 §12.5, the WordPress.org free tier, is now decided — see C1.0.)*
+- **P1 §12.3** — is the name open to revision?
+- **P3 §13** — seven technical decisions for Phase 4, of which background processing on shared hosting is the highest-risk
 
 ---
 
