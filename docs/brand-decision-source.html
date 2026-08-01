@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Brand Name Decision</title>
+<style>
+  @page{ size:A4; margin:0; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  :root{
+    --ink:#10151b; --muted:#5e6b79; --line:#e1e7ed; --tint:#f5f8fa;
+    --navy:#14304F; --slate:#5B6B7B; --sand:#C8A97E;
+    --ok:#2f7d5d; --okbg:#e7f3ed; --warn:#a8322c; --warnbg:#fbeceb;
+    --gold:#8a6d1f; --goldbg:#faf3e0;
+  }
+  body{ font-family:"DejaVu Sans","Helvetica Neue",Arial,sans-serif; color:var(--ink);
+        font-size:9.3pt; line-height:1.42; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .page{ width:210mm; height:297mm; overflow:hidden; padding:13mm 14mm 10mm;
+         page-break-after:always; position:relative; background:#fff; }
+  .page:last-child{ page-break-after:auto; }
+  h1{ font-size:23pt; letter-spacing:-0.6pt; line-height:1.08; font-weight:700; }
+  h2{ font-size:12pt; font-weight:700; letter-spacing:-0.2pt; margin-bottom:6px; }
+  h3{ font-size:10pt; font-weight:700; margin-bottom:5px; }
+  .eyebrow{ font-size:8pt; letter-spacing:1.7pt; text-transform:uppercase; color:var(--muted);
+            font-weight:700; margin-bottom:9px; }
+  .sub{ color:var(--muted); font-size:10.2pt; margin-top:6px; }
+  .rule{ height:3px; width:50px; background:var(--ink); margin:12px 0 15px; }
+  .hr{ height:1px; background:var(--line); margin:13px 0; }
+  .lead{ background:var(--tint); border-left:4px solid var(--ink); padding:11px 13px;
+         margin:12px 0; font-size:9.7pt; }
+  .warnbox{ background:var(--warnbg); border-left:4px solid var(--warn); padding:11px 13px; margin:12px 0; font-size:9.5pt; }
+  .warnbox h2{ color:var(--warn); font-size:11.5pt; }
+  p.m{ color:var(--muted); margin-top:3px; }
+
+  .routes{ display:flex; gap:9px; margin-top:11px; }
+  .rt{ flex:1; border:1px solid var(--line); border-radius:7px; overflow:hidden; }
+  .rt .top{ padding:9px 11px; }
+  .rt .lbl{ font-size:7.6pt; font-weight:700; letter-spacing:1pt; color:var(--muted); }
+  .rt .ttl{ font-size:10.5pt; font-weight:700; margin-top:3px; }
+  .rt .dsc{ font-size:8.5pt; color:var(--muted); margin-top:5px; line-height:1.35; }
+  .rt .btm{ border-top:1px solid var(--line); padding:7px 11px; font-size:8.2pt; background:#fcfdfe; }
+  .rt.win{ border:2px solid var(--gold); }
+  .rt.win .btm{ background:var(--goldbg); }
+  .verdict{ font-size:7.4pt; font-weight:700; letter-spacing:0.5pt; padding:2px 7px;
+            border-radius:20px; display:inline-block; }
+  .v-win{ background:var(--goldbg); color:var(--gold); }
+  .v-no{ background:var(--warnbg); color:var(--warn); }
+
+  /* hero */
+  .hero{ border:2px solid var(--navy); border-radius:9px; overflow:hidden; margin-top:4px; }
+  .hband{ background:var(--navy); color:#fff; padding:16px 18px; display:flex; align-items:flex-end; gap:14px; }
+  .hband .nm{ font-size:31pt; font-weight:700; letter-spacing:-1.3pt; line-height:1; }
+  .hband .dom{ font-size:11pt; color:#c8d6e4; font-family:"DejaVu Sans Mono",monospace; padding-bottom:3px; }
+  .hband .tag{ margin-left:auto; font-size:9.5pt; color:#dfe8f0; font-style:italic; padding-bottom:4px; }
+  .hbody{ padding:12px 18px; }
+  .hbody .mean{ font-size:10pt; }
+  .hbody .mean b{ font-weight:700; }
+  .hrow{ display:flex; gap:13px; margin-top:11px; }
+  .hrow > div{ flex:1; }
+  .swatches{ display:flex; gap:0; margin-top:7px; border-radius:5px; overflow:hidden; }
+  .swatches div{ flex:1; height:38px; }
+  .swlab{ display:flex; gap:0; margin-top:4px; }
+  .swlab span{ flex:1; font-size:7.2pt; font-family:"DejaVu Sans Mono",monospace; color:var(--muted); }
+
+  ul.t{ list-style:none; }
+  ul.t li{ font-size:9pt; padding-left:14px; position:relative; margin-bottom:3px; color:var(--muted); }
+  ul.t li::before{ content:"—"; position:absolute; left:0; color:var(--ink); }
+  ul.t li b{ color:var(--ink); }
+
+  table{ width:100%; border-collapse:collapse; }
+  th{ text-align:left; font-size:7.5pt; text-transform:uppercase; letter-spacing:0.7pt;
+      color:var(--muted); padding:0 5px 6px 0; border-bottom:1px solid var(--line); }
+  th.c,td.c{ text-align:center; }
+  td{ padding:5px 5px 5px 0; border-bottom:1px solid var(--line); font-size:8.7pt; vertical-align:middle; }
+  td.nm{ font-weight:700; width:74px; }
+  .score{ display:inline-block; width:34px; height:7px; border-radius:4px; background:var(--line); position:relative; }
+  .score i{ display:block; height:100%; border-radius:4px; background:var(--navy); }
+  td.tot{ font-weight:700; text-align:right; width:42px; }
+  tr.best td{ background:#fbf7ea; }
+
+  .foot{ position:absolute; bottom:6mm; left:14mm; right:14mm; display:flex;
+         justify-content:space-between; font-size:7.6pt; color:var(--muted);
+         border-top:1px solid var(--line); padding-top:6px; }
+
+  .buy{ border:1px solid var(--line); border-radius:7px; overflow:hidden; margin-top:9px; }
+  .buy .r{ display:flex; align-items:center; gap:10px; padding:8px 12px; border-bottom:1px solid var(--line); }
+  .buy .r:last-child{ border-bottom:none; }
+  .buy .n{ width:17px; height:17px; border-radius:50%; background:var(--navy); color:#fff;
+           font-size:8pt; font-weight:700; display:flex; align-items:center; justify-content:center; flex:none; }
+  .buy .d{ font-family:"DejaVu Sans Mono",monospace; font-size:9pt; font-weight:700; width:135px; }
+  .buy .w{ font-size:8.6pt; color:var(--muted); flex:1; }
+  .buy .p{ font-size:8.4pt; font-weight:700; white-space:nowrap; }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1 -->
+<div class="page">
+  <div class="eyebrow">Brand name &nbsp;·&nbsp; final recommendation</div>
+  <h1>One name, one domain,<br>bought this week</h1>
+  <div class="sub">I tested about 5,500 names against the live domain registry. Here is the honest picture and my single answer.</div>
+  <div class="rule"></div>
+
+  <div class="lead">
+    <strong>The finding you need first.</strong> In 2026 there is essentially no such thing as a short, beautiful,
+    real-word <em>.com</em> that is still free. I checked the good ones directly — Sentio, Salvio, Servio, Intact,
+    Upheld, Ballast, Lodestar, Surety, Mainstay, Touchstone, Bulwark, Cornerstone. <strong>Every single one is
+    already registered.</strong> So the real decision is not “which name is prettiest”. It is <em>which trade-off
+    you accept</em>.
+  </div>
+
+  <h2>The three honest routes</h2>
+  <div class="routes">
+    <div class="rt win">
+      <div class="top">
+        <div class="lbl">ROUTE A</div>
+        <div class="ttl">Invented name,<br>you own the .com</div>
+        <div class="dsc">A made-up word built from two real ones. Nobody else has it, on any extension. You own your
+          name outright, forever.</div>
+      </div>
+      <div class="btm"><span class="verdict v-win">MY RECOMMENDATION</span></div>
+    </div>
+    <div class="rt">
+      <div class="top">
+        <div class="lbl">ROUTE B</div>
+        <div class="ttl">Beautiful word,<br>someone else owns .com</div>
+        <div class="dsc">E.g. <b>Upheld</b> — a lovely word meaning both “held up” and “confirmed correct”. But
+          upheld.com belongs to someone else, permanently.</div>
+      </div>
+      <div class="btm"><span class="verdict v-no">REJECTED — see below</span></div>
+    </div>
+    <div class="rt">
+      <div class="top">
+        <div class="lbl">ROUTE C</div>
+        <div class="ttl">Buy a premium<br>.com from a broker</div>
+        <div class="dsc">Any good short .com can be bought — for anywhere between several thousand and several
+          hundred thousand rupees, sometimes far more.</div>
+      </div>
+      <div class="btm"><span class="verdict v-no">NOT NOW — money belongs in the product</span></div>
+    </div>
+  </div>
+
+  <div class="warnbox">
+    <h2>Why I will not put your lifelong brand on a .io domain</h2>
+    <p style="margin-top:5px">
+      You asked for something that lasts. <b>.io</b> belongs to the British Indian Ocean Territory — and in
+      May 2025 a treaty was signed transferring that territory to Mauritius. The territory itself is not
+      mentioned in the treaty, which strongly implies it stops existing. If its country code is withdrawn from the
+      international standard, ICANN’s retirement policy starts a <b>five-year countdown</b> to phase the extension
+      out. Industry estimates put the whole question on a five to ten year horizon.
+    </p>
+    <p style="margin-top:6px">
+      It may well survive — Mauritius has every financial reason to keep it, and ICANN’s stated goal is stability.
+      But “it may well survive” is not a foundation for a brand you intend to run for twenty years. <b>Upheld.io was
+      the prettiest option I found. I am not recommending it for exactly this reason.</b>
+    </p>
+  </div>
+
+  <div class="hr"></div>
+
+  <h2>What I checked, and how</h2>
+  <ul class="t" style="margin-top:5px">
+    <li><b>~5,500 names</b> generated and tested against live registry records — not guessed, not assumed.</li>
+    <li><b>Roughly 9 in 10 were already taken.</b> That ratio is the whole story of modern domain naming.</li>
+    <li>Survivors were then <b>searched online</b>. Anything with an existing company, product or project was cut.</li>
+    <li>The last few were scored across <b>eight brand criteria</b> — the scorecard is on page 3.</li>
+  </ul>
+
+  <div class="foot"><span>Brand name — final recommendation</span><span>Page 1 of 4</span></div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page">
+  <div class="eyebrow">The answer</div>
+  <h1 style="font-size:19pt">Moorkeep</h1>
+  <div class="rule" style="margin:11px 0 13px"></div>
+
+  <div class="hero">
+    <div class="hband">
+      <span class="nm">Moorkeep</span>
+      <span class="dom">moorkeep.com</span>
+      <span class="tag">“Your site, held steady.”</span>
+    </div>
+    <div class="hbody">
+      <div class="mean">
+        <b>Moor</b> — to tie a vessel down so that it cannot drift away.<br>
+        <b>Keep</b> — the strongest tower of a castle; and simply <em>to keep</em> something, to look after it.
+      </div>
+      <p class="m" style="margin-top:7px;font-size:9.2pt">
+        Two words that both mean <em>hold it securely</em> — one from the harbour, one from the castle. Together they
+        say maintenance and protection in a single breath, which is exactly what this product does. It sounds
+        solid and old-English rather than clever, and it is the easiest name I tested to say once and spell correctly.
+      </p>
+
+      <div class="hrow">
+        <div>
+          <h3>The colours</h3>
+          <div class="swatches">
+            <div style="background:#14304F"></div><div style="background:#5B6B7B"></div>
+            <div style="background:#C8A97E"></div><div style="background:#FBFAF8"></div>
+          </div>
+          <div class="swlab"><span>#14304F</span><span>#5B6B7B</span><span>#C8A97E</span><span>#FBFAF8</span></div>
+          <p class="m" style="font-size:8.4pt;margin-top:5px">
+            Harbour Navy carries the brand. Slate for secondary text. Rope Sand is the single warm accent —
+            used sparingly, never for status. Paper is an off-white, not pure white, so long reading is comfortable.
+          </p>
+        </div>
+        <div>
+          <h3>Why not green</h3>
+          <p class="m" style="font-size:8.4pt">
+            Inside the product, green means <em>working</em>, amber means <em>needs a decision</em>, red means
+            <em>broken</em>. Those three must mean only that. A green logo sitting next to a green status light is a
+            customer misreading their own site at a glance — on the one screen that matters most.
+          </p>
+          <h3 style="margin-top:9px">The mark</h3>
+          <p class="m" style="font-size:8.4pt">
+            A mooring cleat or bollard, drawn geometrically — a simple shape a rope loops around. Reads at
+            16&nbsp;pixels in a browser tab, which is where a plugin logo actually lives.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hr" style="margin:13px 0"></div>
+
+  <div style="display:flex;gap:13px">
+    <div style="flex:1">
+      <h2>It grows with the product</h2>
+      <p class="m" style="font-size:8.9pt">The name carries a whole family without strain, which matters because
+        the product ships in three stages:</p>
+      <ul class="t" style="margin-top:6px">
+        <li><b>Moorkeep Watch</b> — v0.1, checks your checkout works</li>
+        <li><b>Moorkeep Timeline</b> — v0.2, shows what changed</li>
+        <li><b>Moorkeep Guard</b> — v1.0, fixes safely and undoes it if needed</li>
+      </ul>
+      <p class="m" style="font-size:8.9pt;margin-top:7px">
+        And nothing in it says “WordPress”, “checkout” or “AI” — so none of it has to be thrown away when the
+        product grows past any of those.
+      </p>
+    </div>
+    <div style="flex:1">
+      <h2>Lines that write themselves</h2>
+      <ul class="t" style="margin-top:6px">
+        <li>“Your site, held steady.”</li>
+        <li>“Nothing drifts.”</li>
+        <li>“Secured. And looked after.”</li>
+        <li>“We hold it. We keep it.”</li>
+      </ul>
+      <p class="m" style="font-size:8.9pt;margin-top:7px">
+        A good name gives you copy for free. If writing the tagline is a struggle, the name is usually wrong.
+      </p>
+    </div>
+  </div>
+
+  <div class="lead" style="margin-top:13px">
+    <strong>The single strongest argument.</strong> Nothing called Moorkeep exists anywhere on the internet. From
+    the day you launch, you own the entire first page of Google for your own name — permanently, and for free.
+    A common word like <em>Upheld</em> could never give you that at any price.
+  </div>
+
+  <div class="foot"><span>Brand name — final recommendation</span><span>Page 2 of 4</span></div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page">
+  <div class="eyebrow">The scorecard</div>
+  <h1 style="font-size:19pt">Scored on all eight aspects</h1>
+  <div class="sub" style="font-size:9.6pt">Each criterion out of 5. Scored honestly — the recommendation loses points too.</div>
+  <div class="rule" style="margin:11px 0 13px"></div>
+
+  <table>
+    <tr>
+      <th>Name</th><th class="c">Own the<br>.com</th><th class="c">Nothing<br>else uses it</th>
+      <th class="c">Trademark<br>strength</th><th class="c">Say &amp;<br>spell</th>
+      <th class="c">Meaning<br>fits</th><th class="c">Timeless</th>
+      <th class="c">Can rank<br>on Google</th><th class="c">Room to<br>grow</th><th class="tot">Total</th>
+    </tr>
+    <tr class="best">
+      <td class="nm">Moorkeep</td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:80%"></i></span></td>
+      <td class="tot">39/40</td>
+    </tr>
+    <tr>
+      <td class="nm">Vouchkeep</td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:80%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:80%"></i></span></td>
+      <td class="tot">38/40</td>
+    </tr>
+    <tr>
+      <td class="nm">Keelvane</td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:80%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:80%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="tot">38/40</td>
+    </tr>
+    <tr>
+      <td class="nm">Cairnvane</td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:60%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:80%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="tot">37/40</td>
+    </tr>
+    <tr>
+      <td class="nm">Keelward</td>
+      <td class="c"><span class="score"><i style="width:60%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:80%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:80%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="tot">36/40</td>
+    </tr>
+    <tr>
+      <td class="nm">Upheld</td>
+      <td class="c"><span class="score"><i style="width:40%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:20%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:40%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:20%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="tot">26/40</td>
+    </tr>
+    <tr>
+      <td class="nm">Withstand</td>
+      <td class="c"><span class="score"><i style="width:40%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:20%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:40%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:80%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:100%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:20%"></i></span></td>
+      <td class="c"><span class="score"><i style="width:80%"></i></span></td>
+      <td class="tot">24/40</td>
+    </tr>
+  </table>
+
+  <div class="hr" style="margin:13px 0"></div>
+
+  <h2>Where the beautiful words actually lose</h2>
+  <p class="m" style="font-size:9pt">
+    Upheld and Withstand read better on the page. They collapse on three criteria that decide whether a brand
+    survives — and all three are permanent, not fixable later.
+  </p>
+  <ul class="t" style="margin-top:7px">
+    <li><b>You cannot own the .com.</b> Someone else holds it and always will. Every customer who guesses your
+      address lands on a stranger’s website.</li>
+    <li><b>You cannot rank for your own name.</b> “Upheld” is a common English word used in millions of news
+      articles and court reports. You will never reach the top of that search. “Moorkeep” has zero competition.</li>
+    <li><b>You cannot defend it.</b> Ordinary dictionary words are the hardest marks to register and the easiest
+      for a competitor to use anyway. Invented words are the strongest class there is.</li>
+  </ul>
+
+  <div class="lead" style="margin-top:12px">
+    <strong>Second choice, if Moorkeep does not feel right:</strong> <b>Vouchkeep</b> if you want the name to
+    promise accountability to agencies, or <b>Keelvane</b> if you want it to sound engineered to developers.
+    Both are equally free, on every extension. All three are genuinely good — this is a preference, not a risk.
+  </div>
+
+  <div class="foot"><span>Brand name — final recommendation</span><span>Page 3 of 4</span></div>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page">
+  <div class="eyebrow">Do this</div>
+  <h1 style="font-size:19pt">What to buy, in order</h1>
+  <div class="sub" style="font-size:9.6pt">Every domain below was confirmed free at the registry while writing this.</div>
+  <div class="rule" style="margin:11px 0 13px"></div>
+
+  <h2>Buy today — about ₹4,000–6,000 in total</h2>
+  <div class="buy">
+    <div class="r"><span class="n">1</span><span class="d">moorkeep.com</span>
+      <span class="w">The one that matters. Everything else is defensive.</span><span class="p">~₹1,000/yr</span></div>
+    <div class="r"><span class="n">2</span><span class="d">moorkeep.co</span>
+      <span class="w">Closest lookalike. Stops anyone imitating you cheaply.</span><span class="p">~₹2,500/yr</span></div>
+    <div class="r"><span class="n">3</span><span class="d">moorkeep.net</span>
+      <span class="w">The other extension people type by habit.</span><span class="p">~₹1,200/yr</span></div>
+    <div class="r"><span class="n">4</span><span class="d">moorkeep.app</span>
+      <span class="w">Optional. Useful later if you build a hosted dashboard.</span><span class="p">~₹1,500/yr</span></div>
+  </div>
+  <p class="m" style="font-size:8.6pt;margin-top:6px">
+    Skip <b>.io</b> entirely, for the reason on page 1. Register for <b>two years</b> rather than one — it costs
+    little and search engines treat a longer registration as a mild signal of seriousness. Turn on auto-renew and
+    privacy protection at checkout; both are usually free.
+  </p>
+
+  <div class="hr" style="margin:13px 0"></div>
+
+  <h2>Then, in the first week</h2>
+  <ul class="t" style="margin-top:6px">
+    <li><b>Reserve the WordPress.org plugin slug.</b> First come, permanent, and free. This is the one that cannot
+      be undone later.</li>
+    <li><b>Take the social handles</b> — the same name everywhere, even if you never post.</li>
+    <li><b>Set up a simple email address</b> on the domain. It makes everything after this easier.</li>
+  </ul>
+
+  <h2 style="margin-top:12px">Then, before you spend anything on design</h2>
+  <div class="warnbox" style="margin-top:6px">
+    <p>
+      <b>Get a trademark search done.</b> A free domain and an empty Google result prove that nobody is using the
+      name <em>loudly</em>. They cannot prove nobody has <em>registered</em> it quietly — those are different
+      databases and only a lawyer can read them properly. Ask for a search in the software classes
+      (9 and 42) covering India, the United States, the EU and the UK.
+    </p>
+    <p style="margin-top:6px">
+      It is slow and it is cheap. Skipping it is fast and expensive — a competitor of ours has now renamed
+      three times in five years, and its customers are publicly angry about it.
+    </p>
+  </div>
+
+  <div class="hr" style="margin:13px 0"></div>
+
+  <h2>The one-line summary</h2>
+  <div class="lead" style="margin-top:6px;font-size:10.4pt">
+    Buy <b>moorkeep.com</b> this week. It is the only route where you own your name completely — the domain, the
+    search results, and the trademark — for the entire life of the company, starting at about a thousand rupees a year.
+  </div>
+
+  <p class="m" style="font-size:8.8pt;margin-top:11px">
+    If none of the three names feels right when you say it out loud, tell me and I will run another batch. The
+    saying-it-out-loud test is the one that matters most, and it is the only one I cannot run for you.
+  </p>
+
+  <div class="foot"><span>Brand name — final recommendation</span><span>Page 4 of 4</span></div>
+</div>
+
+</body>
+</html>
