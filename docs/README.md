@@ -23,6 +23,8 @@ The one with the largest architectural consequence is **C1.3**: rules and fixes 
 |---|---|---|
 | — | [Standing Constraints](constraints.md) | 🔒 Binding on all phases |
 | — | [**The Recommended Plan**](recommended-plan.md) | ⭐ **Start here.** Amends the P3 §9 roadmap |
+| — | [Product Naming](naming.md) | 🔤 Shortlist ready — needs legal clearance |
+| — | [Roadmap PDF](BuildWithGuru-Roadmap.pdf) | 📄 Plain-language summary for non-technical readers |
 | 1 | [Vision](phase-01-vision.md) | ✅ Approved — corrected by Phase 2 (see Phase 1 §14) |
 | 2 | [Market Research](phase-02-market-research.md) | ✅ Complete |
 | 3 | [Product Requirements Document](phase-03-prd.md) | ✅ Complete — awaiting review |
@@ -85,7 +87,7 @@ Still open:
 - **P2 §13.3** — confirm partner-don't-build on vulnerability data
 - **P2 §13.4** — commission trademark clearance (cheap, slow, irreversible if skipped)
 - **P2 §13.5** — authorise customer discovery on the seven questions in P2 §11
-- **P1 §12.3** — is the name open to revision?
+- **P1 §12.3** — name: shortlist ready in [naming.md](naming.md); recommendation is **Keelpoint**, pending clearance
 - **P3 §13** — seven technical decisions for Phase 4, of which background processing on shared hosting is the highest-risk
 
 ---
