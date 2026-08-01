@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BuildWithGuru — Where We Are and What's Next</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root{
+    --ink:#12181f;
+    --muted:#5d6b7a;
+    --line:#dfe5ec;
+    --paper:#ffffff;
+    --tint:#f4f7fa;
+    --done:#2f7d5d;
+    --donebg:#e6f2ec;
+    --now:#b4741a;
+    --nowbg:#fbf1e0;
+    --next:#3a6ea8;
+    --nextbg:#e8f0f8;
+    --later:#8b93a0;
+    --laterbg:#eef1f4;
+  }
+
+  body{
+    font-family: "DejaVu Sans", "Helvetica Neue", Arial, sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+    font-size:9.6pt;
+    line-height:1.42;
+  }
+
+  .page{
+    width:210mm; height:297mm; overflow:hidden; padding:13mm 14mm 11mm;
+    page-break-after:always; position:relative;
+  }
+  .page:last-child{ page-break-after:auto; }
+
+  h1{ font-size:22pt; line-height:1.15; letter-spacing:-0.4pt; font-weight:700; }
+  h2{ font-size:12.5pt; margin-bottom:6px; letter-spacing:-0.2pt; font-weight:700;}
+  .sub{ color:var(--muted); font-size:10.5pt; margin-top:6px; }
+  .eyebrow{ font-size:8.5pt; letter-spacing:1.6pt; text-transform:uppercase;
+            color:var(--muted); font-weight:700; margin-bottom:10px;}
+
+  .rule{ height:3px; background:var(--ink); width:52px; margin:12px 0 16px; }
+  .hr{ height:1px; background:var(--line); margin:14px 0; }
+
+  .lead{
+    background:var(--tint); border-left:4px solid var(--ink);
+    padding:12px 14px; margin:14px 0 16px; font-size:10.2pt;
+  }
+  .lead strong{ font-weight:700; }
+
+  /* status blocks */
+  .status{ display:flex; gap:10px; margin:12px 0 0; }
+  .scard{ flex:1; border:1px solid var(--line); border-radius:6px; padding:11px 12px; }
+  .scard .big{ font-size:21pt; font-weight:700; line-height:1; letter-spacing:-1pt; }
+  .scard .lbl{ font-size:8.2pt; color:var(--muted); margin-top:5px; line-height:1.35;}
+  .scard.good .big{ color:var(--done); }
+  .scard.warn .big{ color:var(--now); }
+
+  .bar{ height:20px; border-radius:4px; background:var(--laterbg); overflow:hidden; display:flex; }
+  .bar span{ display:block; height:100%; }
+  .barrow{ margin:14px 0 4px; }
+  .barlab{ display:flex; justify-content:space-between; font-size:9.5pt; margin-bottom:5px; }
+  .barlab b{ font-weight:700; }
+  .barnote{ font-size:8.5pt; color:var(--muted); }
+
+  /* doc list */
+  table{ width:100%; border-collapse:collapse; }
+  th{ text-align:left; font-size:8.5pt; text-transform:uppercase; letter-spacing:1pt;
+      color:var(--muted); padding:0 8px 7px 0; border-bottom:1px solid var(--line); }
+  td{ padding:4.5px 8px 4.5px 0; border-bottom:1px solid var(--line); vertical-align:top; font-size:9.4pt; }
+  td.num{ color:var(--muted); width:22px; font-weight:700; }
+  td.what{ width:38%; font-weight:600; }
+  td.plain{ color:var(--muted); }
+  td.st{ width:74px; text-align:right; }
+
+  .pill{ display:inline-block; font-size:8pt; font-weight:700; padding:3px 8px;
+         border-radius:20px; letter-spacing:0.3pt; white-space:nowrap;}
+  .p-done{ background:var(--donebg); color:var(--done); }
+  .p-now{ background:var(--nowbg); color:var(--now); }
+  .p-next{ background:var(--nextbg); color:var(--next); }
+  .p-later{ background:var(--laterbg); color:var(--later); }
+
+  /* timeline */
+  .tl{ margin-top:6px; }
+  .tlrow{ display:flex; gap:0; align-items:stretch; }
+  .tlaxis{ width:74px; flex:none; padding-right:12px; text-align:right; }
+  .tlaxis .mo{ font-size:8.5pt; color:var(--muted); font-weight:700; padding-top:14px; line-height:1.3;}
+  .tlspine{ width:26px; flex:none; position:relative; }
+  .tlspine::before{ content:""; position:absolute; left:11px; top:0; bottom:0; width:2px; background:var(--line); }
+  .dot{ position:absolute; left:4px; top:16px; width:16px; height:16px; border-radius:50%;
+        background:#fff; border:3px solid var(--line); }
+  .dot.done{ border-color:var(--done); background:var(--done); }
+  .dot.now{ border-color:var(--now); background:#fff; }
+  .dot.next{ border-color:var(--next); background:#fff; }
+  .dot.later{ border-color:var(--later); background:#fff; }
+  .tlbody{ flex:1; padding:0 0 11px 6px; }
+
+  .stage{ border:1px solid var(--line); border-radius:7px; padding:10px 13px; }
+  .stage.now{ border-color:var(--now); background:var(--nowbg); }
+  .stage.next{ border-color:var(--next); background:#fff; }
+  .stage h3{ font-size:11pt; display:flex; align-items:center; gap:9px; font-weight:700;}
+  .stage .ver{ font-size:8.5pt; font-weight:700; padding:2px 7px; border-radius:4px;
+               background:var(--ink); color:#fff; letter-spacing:0.5pt;}
+  .stage p{ font-size:9.2pt; color:var(--muted); margin-top:5px; }
+  .stage .get{ font-size:9.2pt; margin-top:7px; padding-top:7px; border-top:1px dashed var(--line); }
+  .stage .get b{ font-weight:700; }
+
+  ul.tick{ list-style:none; margin-top:7px; }
+  ul.tick li{ font-size:9.2pt; padding-left:16px; position:relative; margin-bottom:3px; color:var(--muted); }
+  ul.tick li::before{ content:"—"; position:absolute; left:0; color:var(--ink); }
+
+  .callout{ border:1px solid var(--now); background:var(--nowbg);
+            border-radius:7px; padding:12px 14px; margin-top:4px; }
+  .callout h2{ color:var(--now); font-size:12.5pt; }
+
+  .foot{ position:absolute; bottom:7mm; left:14mm; right:14mm;
+         display:flex; justify-content:space-between;
+         font-size:8pt; color:var(--muted); border-top:1px solid var(--line); padding-top:7px; }
+
+  .two{ display:flex; gap:16px; }
+  .two > div{ flex:1; }
+  .box{ border:1px solid var(--line); border-radius:7px; padding:11px 13px; height:100%; }
+  .box h3{ font-size:10.5pt; margin-bottom:8px; font-weight:700;}
+  .box.dark{ background:var(--tint); }
+</style>
+</head>
+<body>
+
+<!-- ============ PAGE 1 ============ -->
+<div class="page">
+  <div class="eyebrow">Project status report &nbsp;·&nbsp; August 2026</div>
+  <h1>BuildWithGuru</h1>
+  <div class="sub">Where we are today, and what we build next.</div>
+  <div class="rule"></div>
+
+  <div class="lead">
+    <strong>What we are building, in one sentence:</strong><br>
+    A WordPress plugin that constantly checks your online shop still works —
+    and warns you the moment it doesn't. Later, it will also fix problems by itself,
+    safely, and undo the fix automatically if anything goes wrong.
+  </div>
+
+  <h2>Where we are right now</h2>
+  <p class="barnote" style="margin-top:4px">
+    We have finished the planning. We have not started writing the software yet.
+    That is normal and it is deliberate — the plan is what stops us building the wrong thing.
+  </p>
+
+  <div class="status">
+    <div class="scard good">
+      <div class="big">8</div>
+      <div class="lbl">Planning documents<br>finished</div>
+    </div>
+    <div class="scard good">
+      <div class="big">153</div>
+      <div class="lbl">Problems the plugin<br>will know how to spot</div>
+    </div>
+    <div class="scard warn">
+      <div class="big">0</div>
+      <div class="lbl">Lines of software<br>written so far</div>
+    </div>
+    <div class="scard">
+      <div class="big">~12</div>
+      <div class="lbl">Months to the full<br>product, part-time</div>
+    </div>
+  </div>
+
+  <div class="barrow" style="margin-top:18px">
+    <div class="barlab"><b>Planning &amp; design</b><span>8 of 12 documents done</span></div>
+    <div class="bar"><span style="width:67%;background:var(--done)"></span></div>
+    <div class="barnote" style="margin-top:5px">Still to write: Screens, Security, Testing, Launch, Business.</div>
+  </div>
+
+  <div class="barrow" style="margin-top:12px">
+    <div class="barlab"><b>Building the software</b><span>Not started</span></div>
+    <div class="bar"><span style="width:0%;background:var(--now)"></span></div>
+    <div class="barnote" style="margin-top:5px">Starts after we talk to 20 real shop owners. See page 3.</div>
+  </div>
+
+  <div class="hr"></div>
+
+  <h2>The eight documents we have finished</h2>
+  <table style="margin-top:7px">
+    <tr><th class="num"></th><th class="what">Document</th><th>What it answers, in plain words</th><th class="st"></th></tr>
+    <tr><td class="num">1</td><td class="what">Vision</td><td class="plain">What are we building, for whom, and why would anyone care?</td><td class="st"><span class="pill p-done">Done</span></td></tr>
+    <tr><td class="num">2</td><td class="what">Market research</td><td class="plain">Who else already does this, and where is the gap they all missed?</td><td class="st"><span class="pill p-done">Done</span></td></tr>
+    <tr><td class="num">3</td><td class="what">Product requirements</td><td class="plain">Exactly what the plugin must do, and in what order.</td><td class="st"><span class="pill p-done">Done</span></td></tr>
+    <tr><td class="num">4</td><td class="what">Architecture</td><td class="plain">How the code is organised so it stays clean as it grows.</td><td class="st"><span class="pill p-done">Done</span></td></tr>
+    <tr><td class="num">5</td><td class="what">Database design</td><td class="plain">Where all the information is stored, and for how long.</td><td class="st"><span class="pill p-done">Done</span></td></tr>
+    <tr><td class="num">6</td><td class="what">Scanner rules</td><td class="plain">The 153 specific problems the plugin will look for.</td><td class="st"><span class="pill p-done">Done</span></td></tr>
+    <tr><td class="num">7</td><td class="what">Fix engine</td><td class="plain">How it repairs things without ever breaking your site.</td><td class="st"><span class="pill p-done">Done</span></td></tr>
+    <tr><td class="num">8</td><td class="what">The Plan</td><td class="plain">The recommended order to actually build all of it.</td><td class="st"><span class="pill p-done">Done</span></td></tr>
+  </table>
+
+  <div class="foot"><span>BuildWithGuru — status &amp; roadmap</span><span>Page 1 of 3</span></div>
+</div>
+
+<!-- ============ PAGE 2 ============ -->
+<div class="page">
+  <div class="eyebrow">The build roadmap</div>
+  <h1 style="font-size:18pt">What we build, and in what order</h1>
+  <div class="sub" style="font-size:10.5pt">
+    Each stage is useful on its own and can be released. We never build for a year before showing anyone.
+  </div>
+  <div class="rule" style="margin:14px 0 18px"></div>
+
+  <div class="tl">
+
+    <div class="tlrow">
+      <div class="tlaxis"><div class="mo">NOW<br>Weeks 1–4</div></div>
+      <div class="tlspine"><div class="dot now"></div></div>
+      <div class="tlbody">
+        <div class="stage now">
+          <h3><span class="ver">STEP 0</span> Check we are right — before writing code</h3>
+          <p>Talk to twenty shop owners and freelancers. Run three small technical tests.
+             No product code at all this month.</p>
+          <div class="get"><b>Why:</b> one week of asking questions can save a year of building
+             the wrong thing. This is the cheapest safety net we will ever have.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tlrow">
+      <div class="tlaxis"><div class="mo">MONTHS<br>1 – 4</div></div>
+      <div class="tlspine"><div class="dot next"></div></div>
+      <div class="tlbody">
+        <div class="stage next">
+          <h3><span class="ver">v0.1</span> The Checkout Monitor</h3>
+          <p>The plugin quietly tests your shop over and over: can a customer see a product,
+             add it to the basket, reach checkout, and see a way to pay? If any of that stops
+             working, you know within minutes.</p>
+          <ul class="tick">
+            <li>Only watches. It never changes anything on your site.</li>
+            <li>Tells you the exact step that broke and the exact file that caused it.</li>
+            <li>Stays quiet when everything is fine.</li>
+          </ul>
+          <div class="get"><b>What you get:</b> you stop finding out from an angry customer.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tlrow">
+      <div class="tlaxis"><div class="mo">MONTHS<br>4 – 7</div></div>
+      <div class="tlspine"><div class="dot later"></div></div>
+      <div class="tlbody">
+        <div class="stage">
+          <h3><span class="ver">v0.2</span> The Change Timeline</h3>
+          <p>The plugin remembers everything that changes on your site — every update,
+             every setting, every new file, and who did it.</p>
+          <ul class="tick">
+            <li>Still only watches. Nothing is changed for you yet.</li>
+            <li>Turns "it broke on Tuesday" into "these three things changed just before it broke."</li>
+          </ul>
+          <div class="get"><b>What you get:</b> you stop guessing what caused the problem.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tlrow">
+      <div class="tlaxis"><div class="mo">MONTHS<br>7 – 12</div></div>
+      <div class="tlspine"><div class="dot later"></div></div>
+      <div class="tlbody">
+        <div class="stage">
+          <h3><span class="ver">v1.0</span> Safe Auto-Repair</h3>
+          <p>Now the plugin is allowed to act. Before it changes anything it takes a copy so it
+             can undo it. After it changes something it re-tests your shop. If the shop is
+             broken, it puts everything back automatically — without you being there.</p>
+          <ul class="tick">
+            <li>Nothing is ever deleted. Files are moved somewhere safe instead.</li>
+            <li>Anything risky asks you first, and shows you exactly what will change.</li>
+            <li>Every single action is written down in a report you can give a client.</li>
+          </ul>
+          <div class="get"><b>What you get:</b> updates stop being scary.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tlrow">
+      <div class="tlaxis"><div class="mo">YEAR 2<br>and beyond</div></div>
+      <div class="tlspine"><div class="dot later"></div></div>
+      <div class="tlbody" style="padding-bottom:0">
+        <div class="stage">
+          <h3><span class="ver">LATER</span> Many sites, and AI supervision</h3>
+          <p>Manage lots of sites from one place. Add checks for speed, search rankings and
+             accessibility. And supervise the AI tools that are starting to make changes to
+             WordPress sites on their own — making sure they cannot break anything either.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot"><span>BuildWithGuru — status &amp; roadmap</span><span>Page 2 of 3</span></div>
+</div>
+
+<!-- ============ PAGE 3 ============ -->
+<div class="page">
+  <div class="eyebrow">What happens next</div>
+  <h1 style="font-size:18pt">The next 30 days</h1>
+  <div class="rule" style="margin:14px 0 18px"></div>
+
+  <div class="callout">
+    <h2>The most important month is the one with no coding in it</h2>
+    <p style="margin-top:7px;font-size:10.5pt">
+      Before a single line is written, we find out whether shop owners actually feel this problem.
+      Twenty conversations take about twenty hours. If nobody recognises the pain, we have lost
+      two weeks instead of a year.
+    </p>
+  </div>
+
+  <div class="two" style="margin-top:14px">
+    <div>
+      <div class="box">
+        <h3>Weeks 1–2 · Ask, don't build</h3>
+        <ul class="tick" style="margin-top:4px">
+          <li>Talk to 10 shop owners and 10 freelancers or agencies.</li>
+          <li>Main question: <em>"How do you know right now that your checkout works?"</em></li>
+          <li>Most will say: "a customer tells us." That answer is the whole business.</li>
+          <li>Also ask what the last breakage cost them.</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="box">
+        <h3>Week 3 · Three small tests</h3>
+        <ul class="tick" style="margin-top:4px">
+          <li>Can the plugin test a checkout on cheap hosting?</li>
+          <li>Can it catch the exact error when a page crashes?</li>
+          <li>Can it run its checks on a schedule reliably?</li>
+          <li>Throwaway code. Two evenings each.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="two" style="margin-top:12px">
+    <div>
+      <div class="box dark">
+        <h3>Week 4 · Cheap things, done in parallel</h3>
+        <ul class="tick" style="margin-top:4px">
+          <li>Check the name is legally free to use.</li>
+          <li>Decide the final name and buy the domain.</li>
+          <li>Put up one honest page and start collecting emails.</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="box dark">
+        <h3>Then · Start building v0.1</h3>
+        <ul class="tick" style="margin-top:4px">
+          <li>Foundations first, then the checkout tests.</li>
+          <li>Give it free to 10–20 people quietly.</li>
+          <li>Fix what they struggle with before telling the world.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="hr"></div>
+
+  <h2>How we will know it is working</h2>
+  <table style="margin-top:7px">
+    <tr><th class="what">When</th><th>Good sign</th><th>Warning sign</th></tr>
+    <tr>
+      <td class="what">Week 2</td>
+      <td class="plain">People wince when asked about their last breakage.</td>
+      <td class="plain">Nobody can remember one. Stop and rethink.</td>
+    </tr>
+    <tr>
+      <td class="what">Week 3</td>
+      <td class="plain">All three technical tests work on cheap hosting.</td>
+      <td class="plain">They fail — the plugin may only suit expensive hosting.</td>
+    </tr>
+    <tr>
+      <td class="what">Month 4</td>
+      <td class="plain">Testers keep it installed and ask for more.</td>
+      <td class="plain">They quietly uninstall it.</td>
+    </tr>
+    <tr>
+      <td class="what">Month 6</td>
+      <td class="plain">Growing users, and support questions are dropping.</td>
+      <td class="plain">Every spare hour goes on support. Stop growing, fix that first.</td>
+    </tr>
+  </table>
+
+  <div class="lead" style="margin-top:16px">
+    <strong>The one rule behind the whole plan:</strong> the plugin only watches at first, and is
+    only allowed to change things once we have proved it is reliable. A watching plugin that has a
+    bug shows the wrong status. A repairing plugin that has a bug can destroy a business.
+  </div>
+
+  <div class="foot"><span>BuildWithGuru — status &amp; roadmap</span><span>Page 3 of 3</span></div>
+</div>
+
+</body>
+</html>
