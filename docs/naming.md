@@ -143,3 +143,48 @@ And the decision that matters more than which name wins: **start the clearance s
 ---
 
 **Sources consulted:** [Belay (Sweden, quality management SaaS)](https://www.belay.se/en) · [Belay company profile](https://pitchbook.com/profiles/company/483937-30) · [Handrail (Crunchbase)](https://www.crunchbase.com/organization/handrail) · [Handrail DaaS](https://handrail-daas.com/) · [ProofRail — agent governance](https://www.proofrail.dev/) · [ProofRail.org](https://proofrail.org/) · [Provenant](https://www.provenant.net/) · [Keel WordPress boilerplate](https://github.com/cferdinandi/keel)
+
+---
+
+## 9. Moorkeep withdrawn — the spelling test failed in the field
+
+**Date: 2026-08-01. This supersedes the Moorkeep recommendation in the brand PDFs.**
+
+### 9.1 What happened
+
+Asked to proceed, the founder typed **`morekeep.com`** — not `moorkeep.com`.
+
+That is the single most informative data point in this entire naming exercise. The person who has read the name more often than anyone alive, in a document that spelled it correctly a dozen times, still typed the homophone. `moor` and `more` are indistinguishable in speech and, evidently, in recall.
+
+### 9.2 Why it is not fixable
+
+The standard defence against a homophone is to buy the misspelling and redirect it. That is unavailable here:
+
+| Domain | Status |
+|---|---|
+| `moorkeep.com` | Free |
+| **`morekeep.com`** | **Registered to a third party** |
+| `moarkeep.com` · `moorkeap.com` · `murkeep.com` | Free |
+
+So every customer who mishears the name on a call, or recalls it a week later, types the one variant we can never own — and lands on a stranger's website. Permanently, with no remedy, on every conversation for the life of the company.
+
+### 9.3 The replacements have clean coverage
+
+Both remaining finalists own their entire misspelling space:
+
+| Name | Variants checked | Result |
+|---|---|---|
+| **Keelsure** | `kealsure` · `kielsure` · `keelshure` · `keelsur` · `keelshore` · `keelsore` | **All free** |
+| **Vouchkeep** | `vowchkeep` · `vouchkeap` · `voutchkeep` · `vouchkep` · `vouchkip` | **All free** |
+
+### 9.4 Revised recommendation
+
+> **Keelsure** — `keelsure.com`, free on all six extensions, with every plausible misspelling also available to register defensively.
+
+*Keel* — the spine that keeps a vessel upright. *Sure* — certain, steady, dependable. Eight letters, two clean syllables, no sound-alike that anyone else owns.
+
+**Second: Vouchkeep.** Marginally the safer word — "vouch" has no near-homophone in English at all — and the strongest meaning, since it names what we actually sell (P2 §5.4). It loses on two small points: nine letters, and the `ch`+`k` cluster in the middle is a slight stumble when spoken.
+
+### 9.5 The lesson worth keeping
+
+A name's spelling risk cannot be assessed by looking at it. It has to be *heard and retyped*. This one was caught for the price of a single message; had it been caught after the logo, the domain purchases and the WordPress.org slug, it would have cost a rebrand — exactly the trap documented in P2 §6.9.

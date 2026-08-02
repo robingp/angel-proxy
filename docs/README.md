@@ -24,7 +24,7 @@ The one with the largest architectural consequence is **C1.3**: rules and fixes 
 | — | [Standing Constraints](constraints.md) | 🔒 Binding on all phases |
 | — | [**The Recommended Plan**](recommended-plan.md) | ⭐ **Start here.** Amends the P3 §9 roadmap |
 | — | [Product Naming](naming.md) | 🔤 Research + rejected candidates |
-| — | [**Name — Final (PDF)**](Moorkeep-Name-Final.pdf) | 🔤 **Moorkeep. Scored for spelling + memorability. Awaiting your pick** |
+| — | [Name — Final (PDF)](Moorkeep-Name-Final.pdf) | ⚠️ Recommends Moorkeep — **superseded**, see [naming.md §9](naming.md) |
 | — | [Brand Decision (PDF)](Moorkeep-Brand-Decision.pdf) | 🔤 Domain strategy and the .io warning |
 | — | [Brand Name Shortlist (PDF)](BuildWithGuru-Brand-Names.pdf) | 🔤 The wider 8-name shortlist |
 | — | [Roadmap PDF](BuildWithGuru-Roadmap.pdf) | 📄 Plain-language summary for non-technical readers |
@@ -90,7 +90,7 @@ Still open:
 - **P2 §13.3** — confirm partner-don't-build on vulnerability data
 - **P2 §13.4** — commission trademark clearance (cheap, slow, irreversible if skipped)
 - **P2 §13.5** — authorise customer discovery on the seven questions in P2 §11
-- **P1 §12.3** — name: recommendation is **Moorkeep** on `moorkeep.com` ([final PDF](Moorkeep-Name-Final.pdf)). Alternates: Keelsure, Vouchkeep. **Withdrawn: Keelvane and Cairnvane** — "vane" is a homophone of vain/vein. Do not use `.io` — possible retirement following the Chagos treaty.
+- **P1 §12.3** — name: recommendation is now **Keelsure** on `keelsure.com` (alternate: Vouchkeep). **Moorkeep withdrawn** — the founder typed "morekeep" in practice and `morekeep.com` is owned by a third party, so the misspelling can never be reclaimed. See [naming.md §9](naming.md). Also withdrawn: Keelvane, Cairnvane (vane/vain/vein). Do not use `.io`.
 - **P3 §13** — seven technical decisions for Phase 4, of which background processing on shared hosting is the highest-risk
 
 ---
